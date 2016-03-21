@@ -3,16 +3,22 @@
 class Main extends Game {
     constructor(canvas){
 	super("Oh No You Squid'nt!", 800, 600, canvas);
-	this.player = new Squid("player", "mario.png");
+	this.root = new DisplayObjectContainer("root");
+	this.player = new Squid("player", "mario.png", this.root);
+	this.player.setX(400);
+	this.player.setY(300);
     }
 
     update(pressedKeys){
+	
 	super.update(pressedKeys);
+	this.root.update();
     }
 
     draw(g){
+	g.clearRect(0, 0, this.width, this.height);
 	super.draw(g);
-	this.player.draw(g);
+	this.root.draw(g);
     }
 }
 
