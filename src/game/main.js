@@ -10,7 +10,8 @@ class Main extends Game {
 			this.npc = new Squid("npc", "tophat.png", this.root);
 			this.npc.setX(Math.floor(Math.random() * 800 + 1));
 			this.npc.setY(Math.floor(Math.random() * 600 + 1));
-			this.npc.pivotPoint = [64, 64];
+			this.npc.px = 64
+			this.npc.py = 50;
 		}
 
 	this.player = new PlayerSquid("player", "mario.png", this.root);
