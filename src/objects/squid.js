@@ -2,7 +2,8 @@ class Squid extends PhysicsSprite {
     constructor(id, filename, parent){
 	super(id, filename, parent);
 	this.applyGravity = false;
-	this.moveDelay = 3000;
+	this.moveDelay = 1000;
+	this.movePower = .5;
 	this.updateTimer = new GameClock();
 	this.moveTimer = new GameClock();
 	this.delayed = false;
@@ -34,14 +35,14 @@ class Squid extends PhysicsSprite {
 	this.updateTimer.resetGameClock();
 
 	// randomly choose a direction to move
-	this.vx = this.vx * .8;
-	this.vy = this.vy * .8;
-	console.log("Hi" + this.getX() + " " + this.vx + " " + this.vy);
+	this.vx = this.vx * .9;
+	this.vy = this.vy * .9;
 	if (!this.delayed){
 	    this.activateMoveDelay();
 	    var direction = Math.random() * 2 * Math.PI; // angle to move
-	    this.vx = Math.sin(direction);
-	    this.vy = Math.cos(direction);
+	    this.vx = (Math.cos(direction))*this.movePower;
+	    this.vy = (Math.sin(direction))*this.movePower;
+	    this.setRotation((direction / (2*Math.PI))*360);
 	}
 	
 	// update position

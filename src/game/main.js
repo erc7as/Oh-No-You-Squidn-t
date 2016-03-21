@@ -7,6 +7,7 @@ class Main extends Game {
 	this.player = new Squid("player", "mario.png", this.root);
 	this.player.setX(400);
 	this.player.setY(300);
+	this.player.pivotPoint = [64, 64];
     }
 
     update(pressedKeys){
