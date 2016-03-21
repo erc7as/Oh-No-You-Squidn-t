@@ -7,24 +7,29 @@ class Main extends Game {
 	this.root = new DisplayObjectContainer("root");
 
 		for(i = 0; i < 10; i++) {
-			this.player = new Squid("player", "mario.png", this.root);
-			this.player.setX(Math.floor(Math.random() * 800 + 1));
-			this.player.setY(Math.floor(Math.random() * 600 + 1));
-			this.player.pivotPoint = [64, 64];
+			this.npc = new Squid("npc", "tophat.png", this.root);
+			this.npc.setX(Math.floor(Math.random() * 800 + 1));
+			this.npc.setY(Math.floor(Math.random() * 600 + 1));
+			this.npc.pivotPoint = [64, 64];
 		}
+
+	this.player = new PlayerSquid("player", "mario.png", this.root);
+	this.player.setX(400);
+	this.player.setY(300);
+
 
     }
 
     update(pressedKeys){
-	
-	super.update(pressedKeys);
-	this.root.update();
+		super.update(pressedKeys);
+		this.root.update(pressedKeys);
+		
     }
 
     draw(g){
-	g.clearRect(0, 0, this.width, this.height);
-	super.draw(g);
-	this.root.draw(g);
+		g.clearRect(0, 0, this.width, this.height);
+		super.draw(g);
+		this.root.draw(g);
     }
 }
 
