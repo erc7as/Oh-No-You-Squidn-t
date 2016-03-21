@@ -1,3 +1,5 @@
+"use strict";
+
 class Squid extends PhysicsSprite {
     constructor(id, filename, parent){
 	super(id, filename, parent);
