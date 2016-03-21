@@ -30,6 +30,11 @@ class Squid extends PhysicsSprite {
 	super.update();
     }
 
+	draw(g){
+		super.draw(g);
+		this.stayInside(canvasHitbox);
+	}
+
     // redefine move
     // Called after every draw
     move(){

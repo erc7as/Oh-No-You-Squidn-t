@@ -7,5 +7,6 @@ var soundManager = new SoundManager();
 var pickedUpEvent = new PickedUpEvent();
 var collisionEvent = new CollisionEvent();
 var tweenJuggler = new TweenJuggler(); // Singleton
+var canvasHitbox = new Hitbox(0, 0, 850, 590);
 
 var gameClock = 0;

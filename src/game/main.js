@@ -8,8 +8,8 @@ class Main extends Game {
 
 		for(i = 0; i < 10; i++) {
 			this.player = new Squid("player", "mario.png", this.root);
-			this.player.setX(400);
-			this.player.setY(300);
+			this.player.setX(Math.floor(Math.random() * 800 + 1));
+			this.player.setY(Math.floor(Math.random() * 600 + 1));
 			this.player.pivotPoint = [64, 64];
 		}
 
