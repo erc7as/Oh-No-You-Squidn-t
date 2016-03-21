@@ -3,11 +3,16 @@
 class Main extends Game {
     constructor(canvas){
 	super("Oh No You Squid'nt!", 800, 600, canvas);
+		var i;
 	this.root = new DisplayObjectContainer("root");
-	this.player = new Squid("player", "mario.png", this.root);
-	this.player.setX(400);
-	this.player.setY(300);
-	this.player.pivotPoint = [64, 64];
+
+		for(i = 0; i < 10; i++) {
+			this.player = new Squid("player", "mario.png", this.root);
+			this.player.setX(400);
+			this.player.setY(300);
+			this.player.pivotPoint = [64, 64];
+		}
+
     }
 
     update(pressedKeys){
