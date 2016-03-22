@@ -5,9 +5,9 @@ class Main extends Game {
 	super("Oh No You Squid'nt!", 800, 600, canvas);
 		var i;
 	this.root = new DisplayObjectContainer("root");
-
+	this.npcs = new DisplayObjectContainer("npcs", null, this.root);
 		for(i = 0; i < 10; i++) {
-			this.npc = new Squid("npc", "tophat.png", this.root);
+			this.npc = new Squid("npc", "tophat.png", this.npcs);
 			this.npc.setX(Math.floor(Math.random() * 800 + 1));
 			this.npc.setY(Math.floor(Math.random() * 600 + 1));
 			this.npc.px = 64

@@ -2,14 +2,7 @@
 
 class PlayerSquid extends Squid {
     constructor(id, filename, parent){
-	super(id, filename, parent);
-	this.applyGravity = false;
-	this.updateTimer = new GameClock();
-	this.moveTimer = new GameClock();
-	this.rotationDampener = .5; // variabilitiy of rotation
-	this.movePower = 0.1;  // speed of movement
-	this.direction = Math.random() * 2 * Math.PI; // random initial direction
-	this.delayed = false;
+		super(id, filename, parent);
     }
 
     activateMoveDelay(){
@@ -41,6 +34,7 @@ class PlayerSquid extends Squid {
 		if (pressedKeys.contains(40)) // Down
 			this.goDown();
 
+		this.checkCollision();
     }
 
 	draw(g){
@@ -73,5 +67,27 @@ class PlayerSquid extends Squid {
 	goDown() {
 		//this.vx = 3;
 		this.y += 3.0;
+	}
+
+	checkCollision() {
+		// This is an ArrayList object (part of engine)
+		var npcs = this.parent.getChildById("npcs").getChildren();
+		this.hitbox.color = "#000000";
+		for (var i = 0; i < npcs.size(); i++) {
+			if (this.collidesWith(npcs.get(i))) {
+				this.hitbox.color = "#FF0000";
+				npcs.get(i).hitbox.color = "#FF0000";
+				var npcHitbox = npcs.get(i).hitbox;
+				if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
+					this.x -= 3; 
+				}
+				else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
+					this.x += 3;
+				}
+			}
+			else {
+				npcs.get(i).hitbox.color = "#000000";
+			}
+		};
 	}
 }
