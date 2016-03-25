@@ -3,6 +3,8 @@
 class Squid extends PhysicsSprite {
     constructor(id, filename, parent){
 	super(id, filename, parent);
+	this.hitbox = this.makeHitbox();
+
 	this.applyGravity = false;
 	this.updateTimer = new GameClock();
 	this.moveTimer = new GameClock();
@@ -10,6 +12,10 @@ class Squid extends PhysicsSprite {
 	this.movePower = 0.1;  // speed of movement
 	this.direction = Math.random() * 2 * Math.PI; // random initial direction
 	this.delayed = false;
+    }
+
+    makeHitbox(){
+	return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight()));   
     }
 
     activateMoveDelay(){
@@ -26,6 +32,7 @@ class Squid extends PhysicsSprite {
     }
 
     update(){
+    this.hitbox = this.makeHitbox();	
 	if (this.delayed && this.delayElapsed()){this.deactivateMoveDelay();}
 	super.update();
     }
