@@ -3,15 +3,21 @@
 class Main extends Game {
     constructor(canvas){
 	super("Oh No You Squid'nt!", 800, 600, canvas);
-		var i;
 	this.root = new DisplayObjectContainer("root");
 	this.npcs = new DisplayObjectContainer("npcs", null, this.root);
-		for(i = 0; i < 10; i++) {
+		for(var i = 0; i < 10; i++) {
 			this.npc = new Squid("npc", "tophat.png", this.npcs);
 			this.npc.setX(Math.floor(Math.random() * 800 + 1));
 			this.npc.setY(Math.floor(Math.random() * 600 + 1));
 			this.npc.px = 64
 			this.npc.py = 50;
+		}
+	
+	this.food_layer = new DisplayObjectContainer("foods", null, this.root);
+		for(var i = 0; i < 10; i++) {
+			this.food = new Food("food", this.food_layer);
+			this.food.setX(Math.floor(Math.random() * 800 + 1));
+			this.food.setY(Math.floor(Math.random() * 600 + 1));
 		}
 
 	this.player = new PlayerSquid("player", "mario.png", this.root);

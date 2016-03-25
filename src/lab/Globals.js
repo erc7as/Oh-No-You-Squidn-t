@@ -4,7 +4,7 @@ var COIN_EXIT_1 = "The coin moved to the center of the screen";
 
 var questManager = new QuestManager();
 var soundManager = new SoundManager();
-var pickedUpEvent = new PickedUpEvent();
+// var pickedUpEvent = new PickedUpEvent();
 var collisionEvent = new CollisionEvent();
 var tweenJuggler = new TweenJuggler(); // Singleton
 var canvasHitbox = new Hitbox(0, 0, 850, 590);
