@@ -1,12 +1,13 @@
 var COLLISION = "The objects collided";
-var COIN_PICKED_UP = "The coin was picked up";
-var COIN_EXIT_1 = "The coin moved to the center of the screen";
+var FOOD_PICKED_UP = "The food was picked up";
+var FOOD_EXIT_1 = "The food moved to the center of the screen";
 
-var questManager = new QuestManager();
-var soundManager = new SoundManager();
+var QUEST_MANAGER = new QuestManager();
+var SOUND_MANAGER = new SoundManager();
 // var pickedUpEvent = new PickedUpEvent();
 var collisionEvent = new CollisionEvent();
 var tweenJuggler = new TweenJuggler(); // Singleton
-var canvasHitbox = new Hitbox(0, 0, 850, 590);
+var canvasHitbox = new Hitbox(0, 0, 950, 590);
 
 var gameClock = 0;
+var SCORE;

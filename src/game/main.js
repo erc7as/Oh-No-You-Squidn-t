@@ -2,34 +2,49 @@
 
 class Main extends Game {
     constructor(canvas){
-	super("Oh No You Squid'nt!", 800, 600, canvas);
-	this.root = new DisplayObjectContainer("root");
-	this.npcs = new DisplayObjectContainer("npcs", null, this.root);
+		super("Oh No You Squid'nt!", 1000, 600, canvas);
+		this.root = new DisplayObjectContainer("root");
+
+		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
 		for(var i = 0; i < 10; i++) {
-			this.npc = new Squid("npc", "tophat.png", this.npcs);
-			this.npc.setX(Math.floor(Math.random() * 800 + 1));
-			this.npc.setY(Math.floor(Math.random() * 600 + 1));
-			this.npc.px = 64
-			this.npc.py = 50;
+			var npc = new Squid("npc" + i, "tophat.png", this.npcs);
+			npc.setX(Math.floor(Math.random() * 800 + 1));
+			npc.setY(Math.floor(Math.random() * 600 + 1));
+			npc.px = 64
+			npc.py = 50;
 		}
 	
-	this.food_layer = new DisplayObjectContainer("foods", null, this.root);
+		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
 		for(var i = 0; i < 10; i++) {
-			this.food = new Food("food", this.food_layer);
-			this.food.setX(Math.floor(Math.random() * 800 + 1));
-			this.food.setY(Math.floor(Math.random() * 600 + 1));
+			var food = new Food("food" + i, this.food_layer);
+			food.setX(Math.floor(Math.random() * 800 + 1));
+			food.setY(Math.floor(Math.random() * 600 + 1));
+			food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 		}
 
-	this.player = new PlayerSquid("player", "mario.png", this.root);
-	this.player.setX(400);
-	this.player.setY(300);
+		this.player = new PlayerSquid("player", "mario.png", this.root);
+		this.player.setX(400);
+		this.player.setY(300);
 
+		SCORE = new Score("score", null, this.root);
 
+		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
     }
 
     update(pressedKeys){
 		super.update(pressedKeys);
 		this.root.update(pressedKeys);
+
+		for(var i = 0; i < this.food_layer.children.size(); i++) {
+			var food = this.food_layer.children.get(i);
+			if (food.exitTween1 != null) {
+				if (food.exitTween1.isComplete()) {
+					food.dispatchEvent(new FoodExit1(food));
+					//this.food_layer.children.remove(food);
+				}
+			}
+		}
+		
 		
     }
 

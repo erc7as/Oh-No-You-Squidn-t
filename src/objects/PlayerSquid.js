@@ -34,7 +34,8 @@ class PlayerSquid extends Squid {
 		if (pressedKeys.contains(40)) // Down
 			this.goDown();
 
-		this.checkCollision();
+		this.checkSquidCollision();
+		this.checkFoodCollision();
     }
 
 	draw(g){
@@ -69,7 +70,7 @@ class PlayerSquid extends Squid {
 		this.y += 3.0;
 	}
 
-	checkCollision() {
+	checkSquidCollision() {
 		// This is an ArrayList object (part of engine)
 		var npcs = this.parent.getChildById("npcs").getChildren();
 		this.hitbox.color = "#000000";
@@ -87,6 +88,17 @@ class PlayerSquid extends Squid {
 			}
 			else {
 				npcs.get(i).hitbox.color = "#000000";
+			}
+		};
+	}
+
+	checkFoodCollision() {
+		// This is an ArrayList object (part of engine)
+		var food = this.parent.getChildById("foods").getChildren();
+		this.hitbox.color = "#000000";
+		for (var i = 0; i < food.size(); i++) {
+			if (this.collidesWith(food.get(i))) {
+				food.get(i).dispatchEvent(new PickedUpEvent(food.get(i)));
 			}
 		};
 	}

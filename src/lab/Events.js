@@ -6,7 +6,7 @@
 class PickedUpEvent extends Event {
 
 	constructor(source) {
-		super(COIN_PICKED_UP, source);
+		super(FOOD_PICKED_UP, source);
 	}
 
 }
@@ -14,10 +14,10 @@ class PickedUpEvent extends Event {
 /**
  * Coin Exit Event
  */
-class CoinExit1 extends Event {
+class FoodExit1 extends Event {
 
 	constructor(source) {
-		super(COIN_EXIT_1, source);
+		super(FOOD_EXIT_1, source);
 	}
 
 }
