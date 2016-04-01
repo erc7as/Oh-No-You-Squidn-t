@@ -3,9 +3,10 @@
 class PlayerSquid extends Squid {
     constructor(id, filename, parent){
 		super(id, filename, parent);
-		this.squidSize = 1;
-		this.confidence = 1;
+		this.squidSize = 5;
+		this.confidence = 5;
 		this.strength = 10;
+		this.lives = 3;
     }
 
     activateMoveDelay(){
@@ -39,6 +40,7 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		this.setStrength(this.squidSize + this.confidence);
     }
 
 	draw(g){

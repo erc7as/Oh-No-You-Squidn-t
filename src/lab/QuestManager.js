@@ -13,7 +13,34 @@ class QuestManager extends IEventListener {
 		if (event.eventType == COLLISION) {
 			var npc = event.getSource();
 			npc.removeEventListener(QUEST_MANAGER, COLLISION);
-			npc.parent.children.remove(npc);
+			if (game.mode == "Fight"){
+				var ratio = game.player.strength/npc.strength;
+				var rand = Math.random();
+				if (ratio >= 1) {
+					npc.parent.children.remove(npc);
+				}
+				else if (rand <= ratio){
+					npc.parent.children.remove(npc);
+				}
+				else {
+					game.player.lives--;
+					console.log("lost a life!!!");
+				}
+			}
+			else {
+				var ratio = game.player.strength/npc.strength;
+				var rand = Math.random();
+				if (ratio >= 1) {
+					game.player.confidence++;
+				}
+				else if (rand <= ratio){
+					game.player.confidence += 1/ratio;
+				}
+				else {
+					game.player.confidence -= 1/ratio;
+				}
+			}
+
 		}
 
 		// Part of Coin object
@@ -34,6 +61,7 @@ class QuestManager extends IEventListener {
 			//coinExitTween2.animate(TweenableParam.ALPHA, 1, 0, 1000);
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
+			game.player.squidSize++;
 			
 		}
 
