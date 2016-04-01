@@ -70,6 +70,10 @@ class PlayerSquid extends Squid {
 		this.y += 3.0;
 	}
 
+	makeHitbox(){
+		return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 1));   
+    }
+
 	checkSquidCollision() {
 		// This is an ArrayList object (part of engine)
 		var npcs = this.parent.getChildById("npcs").getChildren();
