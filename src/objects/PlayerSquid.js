@@ -3,8 +3,8 @@
 class PlayerSquid extends Squid {
     constructor(id, filename, parent){
 		super(id, filename, parent);
-		this.squidSize = 1;
-		this.confidence = 1;
+		this.squidSize = 5;
+		this.confidence = 5;
 		this.strength = 10;
 		this.lives = 3;
     }
@@ -40,6 +40,7 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		this.setStrength(this.squidSize + this.confidence);
     }
 
 	draw(g){
@@ -87,13 +88,16 @@ class PlayerSquid extends Squid {
 				npcs.get(i).dispatchEvent(new CollisionEvent(npcs.get(i)));
 				// var npcHitbox = npcs.get(i).hitbox;
 				// if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
-				// 	this.x -= 3; 
+				// 	this.x -= 3;
 				// }
 				// else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
 				// 	this.x += 3;
 				// }
 			}
 			else {
+				if (!npcs.get(i).hasEventListener(QUEST_MANAGER, COLLISION)){
+					npcs.get(i).addEventListener(QUEST_MANAGER, COLLISION);
+				}
 				//npcs.get(i).hitbox.color = "#000000";
 			}
 		};

@@ -13,13 +13,43 @@ class QuestManager extends IEventListener {
 		if (event.eventType == COLLISION) {
 			var npc = event.getSource();
 			npc.removeEventListener(QUEST_MANAGER, COLLISION);
-			npc.parent.children.remove(npc);
+			if (game.mode == "Fight"){
+				var ratio = game.player.strength/npc.strength;
+				var rand = Math.random();
+				var rand2 = Math.random();
+				if (ratio >= 1) {
+					npc.parent.children.remove(npc);
+					SPAWNER.spawnSquid();
+				}
+				else if (rand <= ratio && rand2 <= ratio){
+					npc.parent.children.remove(npc);
+					SPAWNER.spawnSquid();
+				}
+				else {
+					game.player.lives--;
+					console.log("lost a life!!!");
+				}
+			}
+			else {
+				var ratio = game.player.strength/npc.strength;
+				var rand = Math.random();
+				if (ratio >= 1) {
+					game.player.confidence++;
+				}
+				else if (rand <= ratio){
+					game.player.confidence += 1/ratio;
+				}
+				else {
+					game.player.confidence -= 1/ratio;
+				}
+			}
+
 		}
 
 		// Part of Coin object
 		if (event.eventType == FOOD_PICKED_UP) {
 			SOUND_MANAGER.playSoundEffect("coin");
-
+			SPAWNER.spawnFood();  // Spawn new Food
 			var food = event.getSource();
 			food.exitTween1 = new Tween(food);
 			food.exitTween1.animate(TweenableParam.SCALE_X, .5, 2, 500);
@@ -34,7 +64,9 @@ class QuestManager extends IEventListener {
 			//coinExitTween2.animate(TweenableParam.ALPHA, 1, 0, 1000);
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
+			game.player.squidSize++;
 			
+
 		}
 
 		if (event.eventType == FOOD_EXIT_1) {
