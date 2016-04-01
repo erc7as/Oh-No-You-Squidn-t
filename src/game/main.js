@@ -4,41 +4,20 @@ class Main extends Game {
     constructor(canvas){
 		super("Oh No You Squid'nt!", 1000, 600, canvas);
 		this.root = new DisplayObjectContainer("root");
-
-		// Add AI Squids
 		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
-		for(var i = 0; i < 10; i++) {
-			var npc = new Squid("npc" + i, "tophat.png", this.npcs);
-			npc.setX(Math.floor(Math.random() * 800 + 1));
-			npc.setY(Math.floor(Math.random() * 600 + 1));
-			npc.px = 64
-			npc.py = 50;
-		}
-	
-		// Add Food
 		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
-		for(var i = 0; i < 10; i++) {
-			var food = new Food("food" + i, this.food_layer);
-			food.setX(Math.floor(Math.random() * 800 + 1));
-			food.setY(Math.floor(Math.random() * 600 + 1));
-			food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
-		}
-
-
 		this.player = new PlayerSquid("player", "mario.png", this.root);
 		this.player.setX(400);
 		this.player.setY(300);
 
-		SCORE = new Score("score", null, this.root);
-
-		this.SPAWNER = new Spawner();
-		this.SPAWNER.setSquidContainer(this.npcs);
-		this.SPAWNER.setFoodContainer(this.food_layer);
-		for(var i = 0; i < 100; i++){
-			this.SPAWNER.spawnFood();
-			this.SPAWNER.spawnSquid();
-		}
 		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
+		SCORE = new Score("score", null, this.root);
+		SPAWNER.setSquidContainer(this.npcs);
+		SPAWNER.setFoodContainer(this.food_layer);
+		for(var i = 0; i < 10; i++){
+			SPAWNER.spawnFood();
+			SPAWNER.spawnSquid();
+		}
     }
 
     update(pressedKeys){
