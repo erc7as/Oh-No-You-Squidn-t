@@ -46,7 +46,7 @@ class QuestManager extends IEventListener {
 		// Part of Coin object
 		if (event.eventType == FOOD_PICKED_UP) {
 			SOUND_MANAGER.playSoundEffect("coin");
-
+			SPAWNER.spawnFood();  // Spawn new Food
 			var food = event.getSource();
 			food.exitTween1 = new Tween(food);
 			food.exitTween1.animate(TweenableParam.SCALE_X, .5, 2, 500);
@@ -63,6 +63,7 @@ class QuestManager extends IEventListener {
 			food.removeEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 			game.player.squidSize++;
 			
+
 		}
 
 		if (event.eventType == FOOD_EXIT_1) {
