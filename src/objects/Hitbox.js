@@ -38,10 +38,14 @@ class Hitbox {
 		var num1 = Math.min(this.x + this.w, b.x + b.w);
 		var y = Math.max(this.y, b.y);
 		var num2 = Math.min(this.y + this.h, b.y + b.h);
-		if (num1 > x && num2 > y)
+		if (num1 > x && num2 > y) {
+			this.color = "#FF0000";
 			return true;
-		else
+		}
+		else {
+			this.color = "#000000";
 			return false;
+		}
 	}
 
 	/**

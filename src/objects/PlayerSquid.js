@@ -3,6 +3,9 @@
 class PlayerSquid extends Squid {
     constructor(id, filename, parent){
 		super(id, filename, parent);
+		this.squidSize = 1;
+		this.confidence = 1;
+		this.strength = 10;
     }
 
     activateMoveDelay(){
@@ -80,18 +83,17 @@ class PlayerSquid extends Squid {
 		this.hitbox.color = "#000000";
 		for (var i = 0; i < npcs.size(); i++) {
 			if (this.collidesWith(npcs.get(i))) {
-				this.hitbox.color = "#FF0000";
-				npcs.get(i).hitbox.color = "#FF0000";
-				var npcHitbox = npcs.get(i).hitbox;
-				if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
-					this.x -= 3; 
-				}
-				else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
-					this.x += 3;
-				}
+				npcs.get(i).dispatchEvent(new CollisionEvent(npcs.get(i)));
+				// var npcHitbox = npcs.get(i).hitbox;
+				// if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
+				// 	this.x -= 3; 
+				// }
+				// else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
+				// 	this.x += 3;
+				// }
 			}
 			else {
-				npcs.get(i).hitbox.color = "#000000";
+				//npcs.get(i).hitbox.color = "#000000";
 			}
 		};
 	}

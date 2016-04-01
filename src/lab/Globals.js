@@ -11,3 +11,4 @@ var canvasHitbox = new Hitbox(0, 0, 950, 590);
 
 var gameClock = 0;
 var SCORE;
+var game;
