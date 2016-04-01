@@ -73,10 +73,12 @@ class Main extends Game {
 		// Number 1 for Flirt mode
 		if (pressedKeys.contains(49)) {
 			this.mode = "Flirt";
+			this.player.displayImage = this.player.defaultImage;
 		}
 		// Number 2 for Fight mode
 		if (pressedKeys.contains(50)) {
 			this.mode = "Fight";
+			this.player.displayImage = this.player.movingImages.fight.Default;
 		}
 
 		$("#mode").text(this.mode);
