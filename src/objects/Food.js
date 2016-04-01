@@ -1,4 +1,6 @@
-class Food extends Sprite{
+"use strict";
+
+class Food extends Sprite {
 	constructor(id, parent){
 		super(id, "Steak.png", parent);
 		this.setScaleX(.3);

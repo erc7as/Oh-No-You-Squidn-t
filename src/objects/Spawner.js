@@ -31,6 +31,7 @@ class Spawner{
 		npc.setStrength(Math.floor(Math.random() * (PLAYER.strength*2 - PLAYER.strength/2 + 1)) + PLAYER.strength/2);
 		npc.px = 64;
 		npc.py = 50;
+		npc.addEventListener(QUEST_MANAGER, COLLISION);
 		this.squid_count += 1;
 	};
 };

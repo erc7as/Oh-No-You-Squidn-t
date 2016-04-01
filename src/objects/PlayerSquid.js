@@ -73,24 +73,27 @@ class PlayerSquid extends Squid {
 		this.y += 3.0;
 	}
 
+	makeHitbox(){
+		return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 1));   
+    }
+
 	checkSquidCollision() {
 		// This is an ArrayList object (part of engine)
 		var npcs = this.parent.getChildById("npcs").getChildren();
 		this.hitbox.color = "#000000";
 		for (var i = 0; i < npcs.size(); i++) {
 			if (this.collidesWith(npcs.get(i))) {
-				this.hitbox.color = "#FF0000";
-				npcs.get(i).hitbox.color = "#FF0000";
-				var npcHitbox = npcs.get(i).hitbox;
-				if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
-					this.x -= 3; 
-				}
-				else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
-					this.x += 3;
-				}
+				npcs.get(i).dispatchEvent(new CollisionEvent(npcs.get(i)));
+				// var npcHitbox = npcs.get(i).hitbox;
+				// if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
+				// 	this.x -= 3; 
+				// }
+				// else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
+				// 	this.x += 3;
+				// }
 			}
 			else {
-				npcs.get(i).hitbox.color = "#000000";
+				//npcs.get(i).hitbox.color = "#000000";
 			}
 		};
 	}

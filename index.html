@@ -5,17 +5,23 @@
 </head>
 
 <body>
+
+
 <canvas id="game" width="900" height="600" style="border:1px solid #000000;margin-right:20px;float:left;">
 <p>Your browser doesn't support canvas.</p>
 </canvas>
 
+<div id="log">
+<h1>Mode: <span id="mode">Flirt</span></h1>
+<p>Change your mode by pressing "1" for Flirt and "2" for Fight</p>
+<h1>Log</h1>
+</div>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- ENGINE -->
      <!-- Util -->
 <script type="text/javascript" src="../engine/src/edu/virginia/engine/util/ArrayList.js"></script>
 <script type="text/javascript" src="../engine/src/edu/virginia/engine/util/GameClock.js"></script>
-<script type="text/javascript" src="../engine/src/edu/virginia/engine/util/Hitbox.js"></script>
 
      <!-- Events -->
 <script type="text/javascript" src="../engine/src/edu/virginia/engine/events/Event.js"></script>
@@ -41,6 +47,7 @@
 <!-- GAME FILES -->
 
 <!-- Useful Stuff -->
+<script type="text/javascript" src="src/objects/Hitbox.js"></script>
 <script type="text/javascript" src="src/lab/Events.js"></script>
 <script type="text/javascript" src="src/lab/QuestManager.js"></script>
 <script type="text/javascript" src="src/lab/SoundManager.js"></script>

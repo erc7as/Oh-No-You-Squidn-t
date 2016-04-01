@@ -11,8 +11,9 @@ class QuestManager extends IEventListener {
 
 	handleEvent(event) {
 		if (event.eventType == COLLISION) {
-			$("#log").append("<p>------QUEST COMPLETE</p>");
-			$("#log").append("<br/><p>---New Quest: Pick up coin!</p>");
+			var npc = event.getSource();
+			npc.removeEventListener(QUEST_MANAGER, COLLISION);
+			npc.parent.children.remove(npc);
 		}
 
 		// Part of Coin object
