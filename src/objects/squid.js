@@ -12,7 +12,13 @@ class Squid extends PhysicsSprite {
 	this.movePower = 0.1;  // speed of movement
 	this.direction = Math.random() * 2 * Math.PI; // random initial direction
 	this.delayed = false;
+		this.strength = 0;
+
     }
+
+	setStrength(strength) {
+		this.strength = strength;
+	}
 
     makeHitbox(){
 	return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight()));   
@@ -40,6 +46,8 @@ class Squid extends PhysicsSprite {
 	draw(g){
 		super.draw(g);
 		this.stayInside(canvasHitbox);
+		g.font = "30px Helvetica";
+		g.fillText(this.strength, this.x + 5, this.y + 5);
 	}
 
     // redefine move

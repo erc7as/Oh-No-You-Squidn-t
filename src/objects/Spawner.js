@@ -28,6 +28,7 @@ class Spawner{
 		var npc = new Squid("npc" + this.squid_count, "tophat.png", this.squid_container);
 		npc.setX(Math.floor(Math.random() * 800 + 1));
 		npc.setY(Math.floor(Math.random() * 600 + 1));
+		npc.setStrength(Math.floor(Math.random() * (PLAYER.strength*2 - PLAYER.strength/2 + 1)) + PLAYER.strength/2);
 		npc.px = 64;
 		npc.py = 50;
 		this.squid_count += 1;

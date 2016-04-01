@@ -6,12 +6,14 @@ class Main extends Game {
 		this.root = new DisplayObjectContainer("root");
 		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
 		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
+
 		this.player = new PlayerSquid("player", "mario.png", this.root);
 		this.player.setX(400);
 		this.player.setY(300);
-
-		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
+		PLAYER = this.player; // Include a global reference to player
+		
 		SCORE = new Score("score", null, this.root);
+		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
 		SPAWNER.setSquidContainer(this.npcs);
 		SPAWNER.setFoodContainer(this.food_layer);
 		for(var i = 0; i < 10; i++){
