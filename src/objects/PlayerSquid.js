@@ -8,7 +8,7 @@ class PlayerSquid extends Squid {
 		this.strength = 10;
 		this.lives = 3;
 		this.defaultImage = this.displayImage;
-		this.movingImages = {"Right": null, "Left": null, "Up": null, "Down": null};
+		this.movingImages = {"flirt": {"Right": null, "Left": null, "Up": null, "Down": null}, "fight": {"Default": null, "Right": null, "Left": null, "Up": null, "Down": null}};
 		this.loadMovingImages();
     }
 
@@ -16,12 +16,23 @@ class PlayerSquid extends Squid {
 	 * Loads the image, sets a flag called 'loaded' when the image is ready to be drawn
 	 */
 	loadMovingImages(){
-		for (var direction in this.movingImages) {
-			this.movingImages[direction] = new Image();
-	  		this.movingImages[direction].onload = function(){
+		for (var direction in this.movingImages.flirt) {
+			this.movingImages.flirt[direction] = new Image();
+	  		this.movingImages.flirt[direction].onload = function(){
 	  			this.loaded = true;
 	  		};
-	  		this.movingImages[direction].src = 'resources/player' + direction + '.png';
+	  		this.movingImages.flirt[direction].src = 'resources/player' + direction + '.png';
+		};
+
+		for (var direction in this.movingImages.fight) {
+			this.movingImages.fight[direction] = new Image();
+	  		this.movingImages.fight[direction].onload = function(){
+	  			this.loaded = true;
+	  		};
+	  		if (direction == "Default")
+	  			this.movingImages.fight[direction].src = 'resources/playerFight.png';
+	  		else
+	  			this.movingImages.fight[direction].src = 'resources/player' + direction + 'Fight.png';
 		};
 		
 	}
@@ -77,7 +88,10 @@ class PlayerSquid extends Squid {
 		this.x -= 3.0;
 		this.eyes.setX(20);
 		this.eyes.setY(40);
-		this.displayImage = this.movingImages.Left;
+		if (game.mode == "Flirt")
+			this.displayImage = this.movingImages.flirt.Left;
+		else
+			this.displayImage = this.movingImages.fight.Left;
 	}
 
 	goRight() {
@@ -85,7 +99,10 @@ class PlayerSquid extends Squid {
 		this.x += 3.0;
 		this.eyes.setX(30);
 		this.eyes.setY(40);
-		this.displayImage = this.movingImages.Right;
+		if (game.mode == "Flirt")
+			this.displayImage = this.movingImages.flirt.Right;
+		else
+			this.displayImage = this.movingImages.fight.Right;
 	}
 
 	goUp() {
@@ -93,7 +110,10 @@ class PlayerSquid extends Squid {
 		this.y -= 3.0;
 		this.eyes.setX(25);
 		this.eyes.setY(38);
-		this.displayImage = this.movingImages.Up;
+		if (game.mode == "Flirt")
+			this.displayImage = this.movingImages.flirt.Up;
+		else
+			this.displayImage = this.movingImages.fight.Up;
 	}
 
 	goDown() {
@@ -101,7 +121,10 @@ class PlayerSquid extends Squid {
 		this.y += 3.0;
 		this.eyes.setX(25);
 		this.eyes.setY(47);
-		this.displayImage = this.movingImages.Down;
+		if (game.mode == "Flirt")
+			this.displayImage = this.movingImages.flirt.Down;
+		else
+			this.displayImage = this.movingImages.fight.Down;
 	}
 
 	makeHitbox(){
