@@ -2,11 +2,16 @@
 
 class Main extends Game {
     constructor(canvas){
-		super("Oh No You Squid'nt!", 1000, 600, canvas);
+    	var width = 1000;
+    	var height = 600;
+		super("Oh No You Squid'nt!", width, height, canvas);
+		this.width = width;
+		this.height = height;		
+
 		this.mode = "Flirt";
 		this.root = new DisplayObjectContainer("root");
 
-		this.player = new PlayerSquid("player", "mario.png", this.root);
+		this.player = new PlayerSquid("player", "player.png", this.root);
 		this.player.setX(400);
 		this.player.setY(300);
 
@@ -29,7 +34,7 @@ class Main extends Game {
 			food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 		}
 
-		SCORE = new Score("score", null, this.root);
+		SCORE = new Score("score", null, this.root, width);
 
 		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
     }
@@ -65,6 +70,20 @@ class Main extends Game {
 		super.draw(g);
 		this.root.draw(g);
     }
+
+    /**
+	 * Loads images for game
+	 */
+	loadImage(filename){
+		var t = this;
+		this.displayImage = new Image();
+  		this.displayImage.onload = function(){
+  			t.loaded = true;
+  			t.w = this.width;
+  			t.h = this.height;
+  		};
+  		this.displayImage.src = 'resources/' + filename;
+	}
 }
 
 

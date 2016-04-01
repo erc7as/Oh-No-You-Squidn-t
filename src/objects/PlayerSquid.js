@@ -6,6 +6,7 @@ class PlayerSquid extends Squid {
 		this.squidSize = 1;
 		this.confidence = 1;
 		this.strength = 10;
+		this.lives = 3;
     }
 
     activateMoveDelay(){
