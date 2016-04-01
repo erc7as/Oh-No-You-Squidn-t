@@ -16,11 +16,14 @@ class QuestManager extends IEventListener {
 			if (game.mode == "Fight"){
 				var ratio = game.player.strength/npc.strength;
 				var rand = Math.random();
+				var rand2 = Math.random();
 				if (ratio >= 1) {
 					npc.parent.children.remove(npc);
+					SPAWNER.spawnSquid();
 				}
-				else if (rand <= ratio){
+				else if (rand <= ratio && rand2 <= ratio){
 					npc.parent.children.remove(npc);
+					SPAWNER.spawnSquid();
 				}
 				else {
 					game.player.lives--;
