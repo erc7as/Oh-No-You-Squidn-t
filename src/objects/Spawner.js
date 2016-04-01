@@ -25,7 +25,9 @@ class Spawner{
 	};
 
 	spawnSquid(){
-		var npc = new Squid("npc" + this.squid_count, "tophat.png", this.squid_container);
+		var squidColors = ["blue", "green", "violet"];
+		var colorIndex = Math.floor(Math.random() * 3);
+		var npc = new Squid("npc" + this.squid_count, "squid_" + squidColors[colorIndex] + ".png", this.squid_container);
 		npc.setX(Math.floor(Math.random() * 800 + 1));
 		npc.setY(Math.floor(Math.random() * 600 + 1));
 		npc.setStrength(Math.floor(Math.random() * (PLAYER.strength*2 - PLAYER.strength/2 + 1)) + PLAYER.strength/2);

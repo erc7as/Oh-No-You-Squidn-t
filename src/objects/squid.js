@@ -46,7 +46,7 @@ class Squid extends PhysicsSprite {
 		super.draw(g);
 		this.stayInside(canvasHitbox);
 		g.font = "30px Helvetica";
-		g.fillText(this.strength, this.x + 5, this.y + 5);
+		g.fillText(Math.round(this.strength), this.x + 5, this.y + 5);
 	}
 
     // redefine move

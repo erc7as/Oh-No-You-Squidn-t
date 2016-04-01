@@ -3,7 +3,7 @@
 class Main extends Game {
     constructor(canvas){
     	var width = 1000;
-    	var height = 600;
+    	var height = 550;
 		super("Oh No You Squid'nt!", width, height, canvas);
 		this.width = width;
 		this.height = height;		
@@ -18,6 +18,9 @@ class Main extends Game {
 		this.player.setY(300);
 		PLAYER = this.player; // Include a global reference to player
 		
+		this.player.eyes = new Sprite("eyes", "eyes.png", this.player);
+		this.player.eyes.x = 27;
+		this.player.eyes.y = 44;
 		// Moved into spawner
 
 		// this.npcs = new DisplayObjectContainer("npcs", null, this.root);
@@ -41,6 +44,10 @@ class Main extends Game {
 
 		SCORE = new Score("score", null, this.root, width);
 		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
+		SOUND_MANAGER.loadSoundEffect("flirt", "flirt.wav");
+		SOUND_MANAGER.loadSoundEffect("fightWon", "fightWon.wav");
+		SOUND_MANAGER.loadSoundEffect("fightLost", "fightLost.wav");
+
 		SPAWNER.setSquidContainer(this.npcs);
 		SPAWNER.setFoodContainer(this.food_layer);
 		for(var i = 0; i < 10; i++){

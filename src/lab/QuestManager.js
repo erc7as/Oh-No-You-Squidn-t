@@ -20,14 +20,17 @@ class QuestManager extends IEventListener {
 				if (ratio >= 1) {
 					npc.parent.children.remove(npc);
 					SPAWNER.spawnSquid();
+					SOUND_MANAGER.playSoundEffect("fightWon");
 				}
 				else if (rand <= ratio && rand2 <= ratio){
 					npc.parent.children.remove(npc);
 					SPAWNER.spawnSquid();
+					SOUND_MANAGER.playSoundEffect("fightWon");
 				}
 				else {
 					game.player.lives--;
 					console.log("lost a life!!!");
+					SOUND_MANAGER.playSoundEffect("fightLost");
 				}
 			}
 			else {
@@ -35,9 +38,11 @@ class QuestManager extends IEventListener {
 				var rand = Math.random();
 				if (ratio >= 1) {
 					game.player.confidence++;
+					SOUND_MANAGER.playSoundEffect("flirt");
 				}
 				else if (rand <= ratio){
 					game.player.confidence += 1/ratio;
+					SOUND_MANAGER.playSoundEffect("flirt");
 				}
 				else {
 					game.player.confidence -= 1/ratio;

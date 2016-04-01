@@ -9,7 +9,7 @@ var SOUND_MANAGER = new SoundManager();
 // var pickedUpEvent = new PickedUpEvent();
 var collisionEvent = new CollisionEvent();
 var tweenJuggler = new TweenJuggler(); // Singleton
-var canvasHitbox = new Hitbox(0, 0, 950, 590);
+var canvasHitbox = new Hitbox(0, 0, 950, 530);
 
 var gameClock = 0;
 var SCORE;

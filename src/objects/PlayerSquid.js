@@ -7,7 +7,24 @@ class PlayerSquid extends Squid {
 		this.confidence = 5;
 		this.strength = 10;
 		this.lives = 3;
+		this.defaultImage = this.displayImage;
+		this.movingImages = {"Right": null, "Left": null, "Up": null, "Down": null};
+		this.loadMovingImages();
     }
+
+    /**
+	 * Loads the image, sets a flag called 'loaded' when the image is ready to be drawn
+	 */
+	loadMovingImages(){
+		for (var direction in this.movingImages) {
+			this.movingImages[direction] = new Image();
+	  		this.movingImages[direction].onload = function(){
+	  			this.loaded = true;
+	  		};
+	  		this.movingImages[direction].src = 'resources/player' + direction + '.png';
+		};
+		
+	}
 
     activateMoveDelay(){
 	this.delayed = true;
@@ -58,21 +75,33 @@ class PlayerSquid extends Squid {
 	goLeft() {
 		//this.vx = -3;
 		this.x -= 3.0;
+		this.eyes.setX(20);
+		this.eyes.setY(40);
+		this.displayImage = this.movingImages.Left;
 	}
 
 	goRight() {
 		//this.vx = 3;
 		this.x += 3.0;
+		this.eyes.setX(30);
+		this.eyes.setY(40);
+		this.displayImage = this.movingImages.Right;
 	}
 
 	goUp() {
 		//this.vx = -3;
 		this.y -= 3.0;
+		this.eyes.setX(25);
+		this.eyes.setY(38);
+		this.displayImage = this.movingImages.Up;
 	}
 
 	goDown() {
 		//this.vx = 3;
 		this.y += 3.0;
+		this.eyes.setX(25);
+		this.eyes.setY(47);
+		this.displayImage = this.movingImages.Down;
 	}
 
 	makeHitbox(){
