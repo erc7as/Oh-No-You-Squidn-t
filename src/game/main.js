@@ -5,11 +5,16 @@ class Main extends Game {
 		super("Oh No You Squid'nt!", 1000, 600, canvas);
 		this.root = new DisplayObjectContainer("root");
 
+		this.player = new PlayerSquid("player", "mario.png", this.root);
+		this.player.setX(400);
+		this.player.setY(300);
+
 		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
 		for(var i = 0; i < 10; i++) {
 			var npc = new Squid("npc" + i, "tophat.png", this.npcs);
 			npc.setX(Math.floor(Math.random() * 800 + 1));
 			npc.setY(Math.floor(Math.random() * 600 + 1));
+			npc.setStrength(Math.floor(Math.random() * (this.player.strength*2 - this.player.strength/2 + 1)) + this.player.strength/2);
 			npc.px = 64
 			npc.py = 50;
 		}
@@ -21,10 +26,6 @@ class Main extends Game {
 			food.setY(Math.floor(Math.random() * 600 + 1));
 			food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 		}
-
-		this.player = new PlayerSquid("player", "mario.png", this.root);
-		this.player.setX(400);
-		this.player.setY(300);
 
 		SCORE = new Score("score", null, this.root);
 
