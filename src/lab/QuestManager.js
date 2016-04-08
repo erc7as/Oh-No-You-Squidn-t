@@ -19,11 +19,13 @@ class QuestManager extends IEventListener {
 				var rand2 = Math.random();
 				if (ratio >= 1) {
 					npc.parent.children.remove(npc);
+					SCORE.addPoints();
 					SPAWNER.spawnSquid();
 					SOUND_MANAGER.playSoundEffect("fightWon");
 				}
 				else if (rand <= ratio && rand2 <= ratio){
 					npc.parent.children.remove(npc);
+					SCORE.addPoints();
 					SPAWNER.spawnSquid();
 					SOUND_MANAGER.playSoundEffect("fightWon");
 				}
@@ -86,7 +88,7 @@ class QuestManager extends IEventListener {
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_EXIT_1);
 			food.parent.children.remove(food);
-			SCORE.addFood();
+			//SCORE.addFood();
 		}
 	}
 

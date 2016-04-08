@@ -19,7 +19,7 @@ class Score extends Sprite {
 
     }
 
-    addFood() {
+    addPoints() {
     	this.score++;
     }
 
