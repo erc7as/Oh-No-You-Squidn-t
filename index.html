@@ -2,16 +2,45 @@
 <html>
 <head>
 <meta charset="utf-8"/>
+<style type="text/css">
+#gameContainer
+{
+  position: relative;
+  /*height: 100%;*/
+  /*width: 100%;*/
+}
+
+#game
+{
+  /*height: 100%;*/
+  /*width: 100%;*/
+  border:1px solid #000000;
+  margin: auto;
+  background: url('./resources/background.jpg'); 
+  z-index: 1;
+}
+
+#controls
+{
+  top: 20%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  text-align: center;
+}
+</style>
 </head>
 
 <body>
+	<img src="resources/logo.png"/>
 
-<img src="resources/logo.png"/>
-
-<canvas id="game" width="900" height="600" style="border:1px solid #000000;margin: auto;background: url('./resources/background.jpg')">
-<p>Your browser doesn't support canvas.</p>
-</canvas>
-
+	<div id="gameContainer">
+		<canvas id="game" width="900" height="600">
+		<p>Your browser doesn't support canvas.</p>
+		</canvas>
+		<div id="controls"></div>
+	</div>
 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -52,6 +81,7 @@
 <script type="text/javascript" src="src/objects/PlayerSquid.js"></script>
 <script type="text/javascript" src="src/objects/Food.js"></script>
 <script type="text/javascript" src="src/objects/Score.js"></script>
+<script type="text/javascript" src="src/objects/Info.js"></script>
 <script type="text/javascript" src="src/objects/Spawner.js"></script>
 <!-- Stuff using useful stuff -->
 <script type="text/javascript" src="src/lab/Globals.js"></script>
