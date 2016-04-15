@@ -68,7 +68,9 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
-		this.checkSharkCollision();
+		if (this.parent.sharkPresent){
+			this.checkSharkCollision();
+		}
 		this.setStrength(this.squidSize + this.confidence);
     }
 
@@ -169,6 +171,7 @@ class PlayerSquid extends Squid {
 
 	checkSharkCollision() {
 		var shark = this.parent.getChildById("sharks").getChildren();
+		console.log("shark?");
 		for (var i = 0; i < shark.size(); i++) {
 			if(this.collidesWith(shark.get(i))) {
 				shark.get(i).dispatchEvent(new SharkEvent(shark.get(i)));

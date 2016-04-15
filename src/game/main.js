@@ -8,14 +8,28 @@ class Main extends Game {
 		this.width = width;
 		this.height = height;
 		this.n = 1;
+		this.sharkPresent = false;
+
+		this.height = height;	
+		document.getElementById("gameContainer").style.width = width + "px";	
+		document.getElementById("gameContainer").style.height = height + "px";	
+
 
 		this.mode = "Flirt";
+		this.paused = true;		// Initially paused so user can click "Start Game"
+
 		this.root = new DisplayObjectContainer("root");
+
 		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
 		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
 		this.sharks = new DisplayObjectContainer("sharks", null, this.root);
 
-		this.player = new PlayerSquid("player", "player.png", this.root);
+
+		this.game_layer = new DisplayObjectContainer("game", null, this.root);
+		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
+		this.food_layer = new DisplayObjectContainer("foods", null, this.game_layer);
+
+		this.player = new PlayerSquid("player", "player.png", this.game_layer);
 		this.player.setX(400);
 		this.player.setY(300);
 		PLAYER = this.player; // Include a global reference to player
@@ -23,28 +37,8 @@ class Main extends Game {
 		this.player.eyes = new Sprite("eyes", "eyes.png", this.player);
 		this.player.eyes.x = 27;
 		this.player.eyes.y = 44;
-		// Moved into spawner
 
-		// this.npcs = new DisplayObjectContainer("npcs", null, this.root);
-		// for(var i = 0; i < 10; i++) {
-		// 	var npc = new Squid("npc" + i, "tophat.png", this.npcs);
-		// 	npc.setX(Math.floor(Math.random() * 800 + 1));
-		// 	npc.setY(Math.floor(Math.random() * 600 + 1));
-		// 	npc.setStrength(Math.floor(Math.random() * (this.player.strength*2 - this.player.strength/2 + 1)) + this.player.strength/2);
-		// 	npc.px = 64
-		// 	npc.py = 50;
-		// 	npc.addEventListener(QUEST_MANAGER, COLLISION);
-		// }
-	
-		// this.food_layer = new DisplayObjectContainer("foods", null, this.root);
-		// for(var i = 0; i < 10; i++) {
-		// 	var food = new Food("food" + i, this.food_layer);
-		// 	food.setX(Math.floor(Math.random() * 800 + 1));
-		// 	food.setY(Math.floor(Math.random() * 600 + 1));
-		// 	food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
-		// }
-
-		SCORE = new Score("score", null, this.root, width);
+		SCORE = new Score("score", null, this.game_layer, width);
 		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
 		SOUND_MANAGER.loadSoundEffect("flirt", "flirt.wav");
 		SOUND_MANAGER.loadSoundEffect("fightWon", "fightWon.wav");
@@ -57,6 +51,11 @@ class Main extends Game {
 			SPAWNER.spawnFood();
 			SPAWNER.spawnSquid();
 		}
+
+		// Make info screen (for initial, pause, and end game)
+		this.infoScreen = new Info("info", null, this.root, width, height);
+		this.game_layer.setVisible(false);
+
     }
 
     update(pressedKeys){
@@ -84,15 +83,24 @@ class Main extends Game {
 			this.player.displayImage = this.player.movingImages.fight.Default;
 		}
 
+		// Spacebar for pause
+		if (pressedKeys.contains(32)) {
+			this.infoScreen.show(this.infoScreen.PAUSE);
+		}
+
 		$("#mode").text(this.mode);
 
 		if (this.player.lives == 0)
-			this.pause();
+			this.infoScreen.show(this.infoScreen.END);
 
 		if(this.player.strength > (this.n * 20)){
 			SPAWNER.spawnShark();
 			this.n++;
+			this.sharkPresent = true;
 		}
+
+
+
     }
 
     draw(g){
