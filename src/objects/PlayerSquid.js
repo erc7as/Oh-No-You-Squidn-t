@@ -10,6 +10,10 @@ class PlayerSquid extends Squid {
 		this.defaultImage = this.displayImage;
 		this.movingImages = {"flirt": {"Right": null, "Left": null, "Up": null, "Down": null}, "fight": {"Default": null, "Right": null, "Left": null, "Up": null, "Down": null}};
 		this.loadMovingImages();
+
+		this.speed = 6;
+		this.powerUpStart = 0;
+		this.powerUp = null;
     }
 
     /**
@@ -68,6 +72,7 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		this.checkPowerUpCollision();
 		this.setStrength(this.squidSize + this.confidence);
     }
 
@@ -81,11 +86,30 @@ class PlayerSquid extends Squid {
     move() {
 		this.x += this.vx;
 		this.y += this.vy;
+
+		this.vx *= .95;
+		this.vy *= .95;
+
+		if (this.speed > 10 && (gameClock - this.powerUpStart) > 100) {
+			this.speed = 6;
+			this.powerUp.parent.removeChild(this.powerUp);
+			this.powerUp = null;
+		}
+
+		// water
+		// if (this.vx > 0)
+		// 	this.vx -= .1;
+		// else
+		// 	this.vx += .1;
+		// if (this.vy > 0)
+		// 	this.vy -= .1;	
+		// else
+		// 	this.vy += .1;	
 	}
 
 	goLeft() {
-		//this.vx = -3;
-		this.x -= 3.0;
+		this.vx = this.speed * -1;
+		//this.x -= 3.0;
 		this.eyes.setX(20);
 		this.eyes.setY(40);
 		if (game.mode == "Flirt")
@@ -95,8 +119,8 @@ class PlayerSquid extends Squid {
 	}
 
 	goRight() {
-		//this.vx = 3;
-		this.x += 3.0;
+		this.vx = this.speed;
+		//this.x += 3.0;
 		this.eyes.setX(30);
 		this.eyes.setY(40);
 		if (game.mode == "Flirt")
@@ -106,8 +130,8 @@ class PlayerSquid extends Squid {
 	}
 
 	goUp() {
-		//this.vx = -3;
-		this.y -= 3.0;
+		this.vy = this.speed * -1;
+		//this.y -= 3.0;
 		this.eyes.setX(25);
 		this.eyes.setY(38);
 		if (game.mode == "Flirt")
@@ -117,14 +141,23 @@ class PlayerSquid extends Squid {
 	}
 
 	goDown() {
-		//this.vx = 3;
-		this.y += 3.0;
+		this.vy = this.speed;
+		//this.y += 3.0;
 		this.eyes.setX(25);
 		this.eyes.setY(47);
 		if (game.mode == "Flirt")
 			this.displayImage = this.movingImages.flirt.Down;
 		else
 			this.displayImage = this.movingImages.fight.Down;
+	}
+
+	addPowerUp(type, object) {
+		this.powerUpStart = gameClock;
+		this.powerUp = object;
+		if (type == POWER_UP.SPEED) {
+			this.speed *= 2;
+		}
+
 	}
 
 	makeHitbox(){
@@ -162,6 +195,17 @@ class PlayerSquid extends Squid {
 		for (var i = 0; i < food.size(); i++) {
 			if (this.collidesWith(food.get(i))) {
 				food.get(i).dispatchEvent(new PickedUpEvent(food.get(i)));
+			}
+		};
+	}
+
+	checkPowerUpCollision() {
+		// This is an ArrayList object (part of engine)
+		var powerUps = this.parent.getChildById("powerUps").getChildren();
+		this.hitbox.color = "#000000";
+		for (var i = 0; i < powerUps.size(); i++) {
+			if (this.collidesWith(powerUps.get(i))) {
+				powerUps.get(i).dispatchEvent(new PowerUpEvent(powerUps.get(i)));
 			}
 		};
 	}

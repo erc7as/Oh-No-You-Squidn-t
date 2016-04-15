@@ -10,6 +10,8 @@ class Main extends Game {
 		document.getElementById("gameContainer").style.width = width + "px";	
 		document.getElementById("gameContainer").style.height = height + "px";	
 
+		canvasHitbox = new Hitbox(0, 0, 1000, 530);
+
 		this.mode = "Flirt";
 		this.paused = true;		// Initially paused so user can click "Start Game"
 
@@ -40,6 +42,15 @@ class Main extends Game {
 			SPAWNER.spawnFood();
 			SPAWNER.spawnSquid();
 		}
+
+		// Powerups
+		this.powerUps_layer = new DisplayObjectContainer("powerUps", null, this.game_layer);
+		var speed = new Sprite("speed", "speed.png", this.powerUps_layer);
+		speed.x = 50;
+		speed.y = 100;
+		speed.event = POWER_UP.SPEED;
+		speed.addEventListener(QUEST_MANAGER, POWER_UP.SPEED);
+
 
 		// Make info screen (for initial, pause, and end game)
 		this.infoScreen = new Info("info", null, this.root, width, height);

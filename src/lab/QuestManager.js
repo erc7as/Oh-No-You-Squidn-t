@@ -90,6 +90,14 @@ class QuestManager extends IEventListener {
 			food.parent.children.remove(food);
 			//SCORE.addFood();
 		}
+
+		if (event.eventType == POWER_UP.SPEED) {
+			var powerUp = event.getSource();
+			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.SPEED);
+			SCORE.addPowerUp(powerUp);
+
+			game.player.addPowerUp(POWER_UP.SPEED, powerUp);
+		}
 	}
 
 }

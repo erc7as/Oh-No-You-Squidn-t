@@ -73,6 +73,7 @@ class Info extends Sprite {
 		else if (this.screen == this.END) {
 			var info = this;
 			var text = "<h1>Game Over!</h1>";
+			text += "<h2>Score: " + SCORE.score + "</h2>";
 			// var button = document.createElement("input");
 			// button.type = "button";
 			// button.value = "Resume Game";
@@ -92,11 +93,12 @@ class Info extends Sprite {
 			var rootContainer = this.getParent();
 			if (mode != this.END) 
 				rootContainer.getChildById("game").setVisible(false);
-			else
+			else {
 				this.alpha = .65;
+				game.playing = false;
+			}
 			this.screen = mode;
 			this.drawScreen();
-			game.playing = false;
 		}
 	}
 

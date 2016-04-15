@@ -32,3 +32,14 @@ class CollisionEvent extends Event {
 	}
 
 }
+
+/**
+ * Picked Up Event
+ */
+class PowerUpEvent extends Event {
+
+	constructor(source) {
+		super(source.event, source);
+	}
+
+}

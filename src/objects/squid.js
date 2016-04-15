@@ -53,6 +53,13 @@ class Squid extends PhysicsSprite {
 		this.setPivotPoint([this.getWidth() / 2, this.getHeight() / 2])
 	}
 
+	// Changed to make a small square
+	getWorldHitbox() {
+		var worldPoint = this.convertCoordinates();
+		var width = this.getWidth() * 3/5;
+		return new Hitbox(worldPoint.x + width / 3, worldPoint.y + width / 3, width, width);
+	}
+
     // redefine move
     // Called after every draw
     move(){
