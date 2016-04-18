@@ -88,7 +88,14 @@ class QuestManager extends IEventListener {
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_EXIT_1);
 			food.parent.children.remove(food);
-			//SCORE.addFood();
+		}
+
+		if (event.eventType == SHARK_ATTACK) {
+			var shark = event.getSource();
+			shark.removeEventListener(QUEST_MANAGER, SHARK_ATTACK);
+			game.player.lives--;
+			console.log("lost a life!!!");
+			SOUND_MANAGER.playSoundEffect("fightLost");
 		}
 	}
 

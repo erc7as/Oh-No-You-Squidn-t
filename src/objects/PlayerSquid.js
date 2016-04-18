@@ -68,6 +68,9 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		if (this.parent.sharkPresent){
+			this.checkSharkCollision();
+		}
 		this.setStrength(this.squidSize + this.confidence);
     }
 
@@ -164,5 +167,20 @@ class PlayerSquid extends Squid {
 				food.get(i).dispatchEvent(new PickedUpEvent(food.get(i)));
 			}
 		};
+	}
+
+	checkSharkCollision() {
+		var shark = this.parent.getChildById("sharks").getChildren();
+		console.log("shark?");
+		for (var i = 0; i < shark.size(); i++) {
+			if(this.collidesWith(shark.get(i))) {
+				shark.get(i).dispatchEvent(new SharkEvent(shark.get(i)));
+			} else {
+				if (!shark.get(i).hasEventListener(QUEST_MANAGER, SHARK_ATTACK)) {
+					shark.get(i).addEventListener(QUEST_MANAGER, SHARK_ATTACK);
+				}
+			}
+		}
+
 	}
 }

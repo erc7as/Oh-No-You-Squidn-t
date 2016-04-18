@@ -2,9 +2,11 @@
 class Spawner{
 	constructor(){
 		this.food_container = null;
-		this.squid_container = null;
+		this.squid_container = null
+		this.shark_container = null;
 		this.squid_count = 0;
 		this.food_count = 0;
+		this.shark_count = 0;
 	};
 
 	setFoodContainer(food_container){
@@ -13,6 +15,10 @@ class Spawner{
 
 	setSquidContainer(squid_container){
 		this.squid_container = squid_container;
+	};
+
+	setSharkContainer(shark_container) {
+		this.shark_container = shark_container;
 	};
 
 	spawnFood(){
@@ -36,4 +42,20 @@ class Spawner{
 		npc.addEventListener(QUEST_MANAGER, COLLISION);
 		this.squid_count += 1;
 	};
+
+	spawnShark() {
+		var shark = new Shark("shark" + this.shark_count, "shark.png", this.shark_container);
+		shark.setScaleX(0.5);
+		shark.setScaleY(0.5);
+		if (shark.lr == 0) {
+			shark.setX(1000);
+		} else {
+			shark.flipped = true;
+			shark.setX(-1000);
+		}
+
+		shark.setY(Math.floor(Math.random() * 600 + 1));
+		shark.addEventListener(QUEST_MANAGER, SHARK_ATTACK);
+		this.shark_count++;
+	}
 };

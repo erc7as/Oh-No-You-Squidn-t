@@ -6,14 +6,24 @@ class Main extends Game {
     	var height = 550;
 		super("Oh No You Squid'nt!", width, height, canvas);
 		this.width = width;
+		this.height = height;
+		this.n = 1;
+		this.sharkPresent = false;
+
 		this.height = height;	
 		document.getElementById("gameContainer").style.width = width + "px";	
 		document.getElementById("gameContainer").style.height = height + "px";	
+
 
 		this.mode = "Flirt";
 		this.paused = true;		// Initially paused so user can click "Start Game"
 
 		this.root = new DisplayObjectContainer("root");
+
+		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
+		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
+		this.sharks = new DisplayObjectContainer("sharks", null, this.root);
+
 
 		this.game_layer = new DisplayObjectContainer("game", null, this.root);
 		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
@@ -36,6 +46,7 @@ class Main extends Game {
 
 		SPAWNER.setSquidContainer(this.npcs);
 		SPAWNER.setFoodContainer(this.food_layer);
+		SPAWNER.setSharkContainer(this.sharks);
 		for(var i = 0; i < 10; i++){
 			SPAWNER.spawnFood();
 			SPAWNER.spawnSquid();
@@ -81,6 +92,15 @@ class Main extends Game {
 
 		if (this.player.lives == 0)
 			this.infoScreen.show(this.infoScreen.END);
+
+		if(this.player.strength > (this.n * 20)){
+			SPAWNER.spawnShark();
+			this.n++;
+			this.sharkPresent = true;
+		}
+
+
+
     }
 
     draw(g){
