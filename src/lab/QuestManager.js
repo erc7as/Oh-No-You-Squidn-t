@@ -72,8 +72,6 @@ class QuestManager extends IEventListener {
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 			game.player.squidSize++;
-			
-
 		}
 
 		if (event.eventType == FOOD_EXIT_1) {
@@ -81,7 +79,6 @@ class QuestManager extends IEventListener {
 			var foodExitTween2 = new Tween(food);
 			foodExitTween2.animate(TweenableParam.ALPHA, 1, 0, 500);
 			foodExitTween2.animate(TweenableParam.ALPHA, 1, 0, 500);
-
 			tweenJuggler.add(foodExitTween2);
 			//var coinExitTween2 = new Tween(this);
 			//coinExitTween2.animate(TweenableParam.ALPHA, 1, 0, 1000);
@@ -96,6 +93,15 @@ class QuestManager extends IEventListener {
 			game.player.lives--;
 			console.log("lost a life!!!");
 			SOUND_MANAGER.playSoundEffect("fightLost");
+		}
+
+		if (event.eventType == SQUID_SPAWN) {
+			var squid = event.getSource();
+			var squidEnterTween = new Tween(squid);
+			squidEnterTween.animate(TweenableParam.ALPHA, .0, 1, 8000);
+			squidEnterTween.animate(TweenableParam.X, event.sx, event.dx, 6000);
+			squidEnterTween.animate(TweenableParam.Y, event.sy, event.dy, 6000);
+			tweenJuggler.add(squidEnterTween);
 		}
 	}
 

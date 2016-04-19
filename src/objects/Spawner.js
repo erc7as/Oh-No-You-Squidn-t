@@ -33,10 +33,18 @@ class Spawner{
 	spawnSquid(){
 		var squidColors = ["blue", "green", "violet"];
 		var colorIndex = Math.floor(Math.random() * 3);
-		var npc = new Squid("npc" + this.squid_count, "squid_" + squidColors[colorIndex] + ".png", this.squid_container);
-		npc.setX(Math.floor(Math.random() * 800 + 1));
-		npc.setY(Math.floor(Math.random() * 600 + 1));
+		var npc = new Squid("npc" + this.squid_count, "squid_" + squidColors[colorIndex] + ".png", this.squid_container);		
+		var spawn_top = Math.random() < .5;
+		var spawn_left = Math.random() < .5;
+		var spawn_x = 1000;
+		var spawn_y = 1000;
+		if (spawn_top){ spawn_y = spawn_y * -1;}
+		if (spawn_left){ spawn_x = spawn_x * -1;}
+		var dst_x = Math.floor(Math.random() * 800 + 1);
+		var dst_y = Math.floor(Math.random() * 600 + 1);
 		npc.setStrength(Math.floor(Math.random() * (PLAYER.strength*2 - PLAYER.strength/2 + 1)) + PLAYER.strength/2);
+		npc.addEventListener(QUEST_MANAGER, SQUID_SPAWN);
+		npc.dispatchEvent(new SpawnSquid(npc,spawn_x, spawn_y, dst_x, dst_y));
 		npc.px = 64;
 		npc.py = 50;
 		npc.addEventListener(QUEST_MANAGER, COLLISION);
