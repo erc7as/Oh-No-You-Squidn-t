@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8"/>
 <style type="text/css">
+#wrapper {
+  width: 80%;     /* specify a width! */
+  margin: 0 auto; /* center */
+  text-align: center;
+}
+
 #gameContainer
 {
   position: relative;
@@ -33,6 +39,7 @@
 </head>
 
 <body>
+<div id="wrapper">
 	<img src="resources/logo.png"/>
 
 	<div id="gameContainer">
@@ -41,7 +48,7 @@
 		</canvas>
 		<div id="controls"></div>
 	</div>
-
+</div>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- ENGINE -->
@@ -78,6 +85,7 @@
 <script type="text/javascript" src="src/lab/QuestManager.js"></script>
 <script type="text/javascript" src="src/lab/SoundManager.js"></script>
 <script type="text/javascript" src="src/objects/Squid.js"></script>
+<script type="text/javascript" src="src/objects/Shark.js"></script>
 <script type="text/javascript" src="src/objects/PlayerSquid.js"></script>
 <script type="text/javascript" src="src/objects/Food.js"></script>
 <script type="text/javascript" src="src/objects/Score.js"></script>

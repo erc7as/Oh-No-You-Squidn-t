@@ -43,3 +43,20 @@ class PowerUpEvent extends Event {
 	}
 
 }
+
+class SharkEvent extends Event {
+
+	constructor(source) {
+		super(SHARK_ATTACK, source);
+	}
+}
+
+class SpawnSquid extends Event {
+	constructor(source, sx, sy, dx, dy){
+		super(SQUID_SPAWN, source);
+		this.sx = sx;
+		this.sy = sy;
+		this.dx = dx;
+		this.dy = dy;
+	}
+}

@@ -22,6 +22,15 @@ class Score extends Sprite {
 
     addPoints() {
     	this.score++;
+    	if (this.score % 20 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.LIFE);
+    	}
+    	else if (this.score % 40 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.INVINCIBLE);
+    	}
+    	else if (this.score % 10 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.SPEED);
+    	}
     }
 
     addPowerUp(object) {
