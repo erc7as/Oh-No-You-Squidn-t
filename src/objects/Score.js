@@ -13,6 +13,7 @@ class Score extends Sprite {
 		this.score = 0;
 
 		this.createHearts();
+		this.powerUp = null;
     }
 
     update(pressedKeys){
@@ -21,6 +22,23 @@ class Score extends Sprite {
 
     addPoints() {
     	this.score++;
+    	if (this.score % 20 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.LIFE);
+    	}
+    	else if (this.score % 40 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.INVINCIBLE);
+    	}
+    	else if (this.score % 10 == 0) {
+    		SPAWNER.spawnPowerup(POWER_UP.SPEED);
+    	}
+    }
+
+    addPowerUp(object) {
+    	this.powerUp = object;
+    	this.powerUp.x = this.x + 850;
+    	this.powerUp.y = this.y + 5;
+    	this.powerUp.scaleX = .5;
+    	this.powerUp.scaleY = .5;
     }
 
 	draw(g){
@@ -68,7 +86,6 @@ class Score extends Sprite {
 		g.fillText("Mode:", this.x + 640, this.y + 35);
 		g.fillText(game.mode, this.x + 740, this.y + 35);
 
-		
 
 	}
 

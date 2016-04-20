@@ -16,6 +16,9 @@ class Info extends Sprite {
 		this.PAUSE = "Game pause screen";
 		this.END = "Game over screen";
 
+		this.welcomeScreen = new DisplayObject("welcomeScreen", "welcome.png", null);
+		this.pauseScreen = new DisplayObject("pauseScreen", "pause.png", null);
+
 		this.screen = this.WELCOME;
 		this.drawScreen();
     }
@@ -38,6 +41,13 @@ class Info extends Sprite {
 			g.fillStyle = "#FFFFFF";
 			g.fillRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
 
+			if (this.screen == this.WELCOME) {
+				this.welcomeScreen.draw(g);
+			}
+			else if (this.screen == this.PAUSE) {
+				this.pauseScreen.draw(g);
+			}
+
 			this.reverseTransformations(g);
 			g.restore();	
 		}
@@ -47,32 +57,33 @@ class Info extends Sprite {
 	drawScreen(g){
 		if (this.screen == this.WELCOME) {
 			var info = this;
-			var text = "<h1>Welcome to Oh No You Squidn't!</h1>";
-			text += "<p>How to Play:</p>";
+			// var text = "<h1>Welcome to Oh No You Squidn't!</h1>";
+			// text += "<p>How to Play: You're a squid! You want to get as high of a score as you can. You get score points by successfully fighting other squids.</p><p>You'll start out in FLIRT mode, though. Flirting increases your confidence, which in turn increases your strength (good thing).</p><p>Fighting increases your size, which also in turn increases your strength. You can toggle between FLIRT and FIGHT using the \"1\" and \"2\" keys.</p>Watch out for sharks! And keep an eye out for powerup gems!</p>";
 			var button = document.createElement("input");
 			button.type = "button";
 			button.value = "Start Game";
 			button.onclick = function() {
 				info.hide();
 			}
-			document.getElementById("controls").innerHTML = text;
+			//document.getElementById("controls").innerHTML = text;
 			document.getElementById("controls").appendChild(button);
 		}
 		else if (this.screen == this.PAUSE) {
 			var info = this;
-			var text = "<h1>Game Paused</h1>";
+			//var text = "<h1>Game Paused</h1>";
 			var button = document.createElement("input");
 			button.type = "button";
 			button.value = "Resume Game";
 			button.onclick = function() {
 				info.hide();
 			}
-			document.getElementById("controls").innerHTML = text;
+			//document.getElementById("controls").innerHTML = text;
 			document.getElementById("controls").appendChild(button);
 		}
 		else if (this.screen == this.END) {
 			var info = this;
 			var text = "<h1>Game Over!</h1>";
+			text += "<h2>Score: " + SCORE.score + "</h2>";
 			// var button = document.createElement("input");
 			// button.type = "button";
 			// button.value = "Resume Game";
@@ -92,11 +103,12 @@ class Info extends Sprite {
 			var rootContainer = this.getParent();
 			if (mode != this.END) 
 				rootContainer.getChildById("game").setVisible(false);
-			else
+			else {
 				this.alpha = .65;
+				game.playing = false;
+			}
 			this.screen = mode;
 			this.drawScreen();
-			game.playing = false;
 		}
 	}
 

@@ -33,6 +33,17 @@ class CollisionEvent extends Event {
 
 }
 
+/**
+ * Picked Up Event
+ */
+class PowerUpEvent extends Event {
+
+	constructor(source) {
+		super(source.event, source);
+	}
+
+}
+
 class SharkEvent extends Event {
 
 	constructor(source) {
@@ -40,9 +51,21 @@ class SharkEvent extends Event {
 	}
 }
 
+
 class SharkDespawn extends Event {
 
 	constructor(source) {
 		super(SHARK_DESPAWN, source);
 	}
 }
+
+class SpawnSquid extends Event {
+	constructor(source, sx, sy, dx, dy){
+		super(SQUID_SPAWN, source);
+		this.sx = sx;
+		this.sy = sy;
+		this.dx = dx;
+		this.dy = dy;
+	}
+}
+

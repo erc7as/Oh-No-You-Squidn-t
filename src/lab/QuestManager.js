@@ -72,8 +72,6 @@ class QuestManager extends IEventListener {
 		
 			food.removeEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
 			game.player.squidSize++;
-			
-
 		}
 
 		if (event.eventType == FOOD_EXIT_1) {
@@ -81,7 +79,6 @@ class QuestManager extends IEventListener {
 			var foodExitTween2 = new Tween(food);
 			foodExitTween2.animate(TweenableParam.ALPHA, 1, 0, 500);
 			foodExitTween2.animate(TweenableParam.ALPHA, 1, 0, 500);
-
 			tweenJuggler.add(foodExitTween2);
 			//var coinExitTween2 = new Tween(this);
 			//coinExitTween2.animate(TweenableParam.ALPHA, 1, 0, 1000);
@@ -98,10 +95,36 @@ class QuestManager extends IEventListener {
 			SOUND_MANAGER.playSoundEffect("fightLost");
 		}
 
+
 		if (event.eventType == SHARK_DESPAWN) {
 			var shark = event.getSource();
 			shark.removeEventListener(QUEST_MANAGER, SHARK_DESPAWN);
 			shark.parent.children.remove(shark);
+		}
+
+		if (event.eventType == SQUID_SPAWN) {
+			var squid = event.getSource();
+			var squidEnterTween = new Tween(squid);
+			squidEnterTween.animate(TweenableParam.ALPHA, .0, 1, 6000);
+			squidEnterTween.animate(TweenableParam.X, event.sx, event.dx, 10000);
+			squidEnterTween.animate(TweenableParam.Y, event.sy, event.dy, 10000);
+			tweenJuggler.add(squidEnterTween);
+		}
+
+		if (event.eventType == POWER_UP.SPEED) {
+			var powerUp = event.getSource();
+			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.SPEED);
+			SCORE.addPowerUp(powerUp);
+
+			game.player.addPowerUp(POWER_UP.SPEED, powerUp);
+		}
+
+		if (event.eventType == POWER_UP.LIFE) {
+			var powerUp = event.getSource();
+			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.LIFE);
+			game.player.addPowerUp(POWER_UP.LIFE, powerUp);
+			powerUp.parent.children.remove(powerUp);
+
 		}
 	}
 
