@@ -97,6 +97,12 @@ class QuestManager extends IEventListener {
 			console.log("lost a life!!!");
 			SOUND_MANAGER.playSoundEffect("fightLost");
 		}
+
+		if (event.eventType == SHARK_DESPAWN) {
+			var shark = event.getSource();
+			shark.removeEventListener(QUEST_MANAGER, SHARK_DESPAWN);
+			shark.parent.children.remove(shark);
+		}
 	}
 
 }

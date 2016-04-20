@@ -56,6 +56,7 @@ class Spawner{
 
 		shark.setY(Math.floor(Math.random() * 600 + 1));
 		shark.addEventListener(QUEST_MANAGER, SHARK_ATTACK);
+		shark.addEventListener(QUEST_MANAGER, SHARK_DESPAWN);
 		this.shark_count++;
 	}
 };

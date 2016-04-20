@@ -39,3 +39,10 @@ class SharkEvent extends Event {
 		super(SHARK_ATTACK, source);
 	}
 }
+
+class SharkDespawn extends Event {
+
+	constructor(source) {
+		super(SHARK_DESPAWN, source);
+	}
+}

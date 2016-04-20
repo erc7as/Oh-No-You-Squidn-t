@@ -8,6 +8,8 @@ class Main extends Game {
 		this.width = width;
 		this.height = height;
 		this.n = 1;
+		this.n2 = 1;
+		this.n3 = 0;
 		this.sharkPresent = false;
 
 		this.height = height;	
@@ -20,14 +22,15 @@ class Main extends Game {
 
 		this.root = new DisplayObjectContainer("root");
 
-		this.npcs = new DisplayObjectContainer("npcs", null, this.root);
-		this.food_layer = new DisplayObjectContainer("foods", null, this.root);
-		this.sharks = new DisplayObjectContainer("sharks", null, this.root);
+		//this.npcs = new DisplayObjectContainer("npcs", null, this.root);
+		//this.food_layer = new DisplayObjectContainer("foods", null, this.root);
+		//this.sharks = new DisplayObjectContainer("sharks", null, this.root);
 
 
 		this.game_layer = new DisplayObjectContainer("game", null, this.root);
 		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
 		this.food_layer = new DisplayObjectContainer("foods", null, this.game_layer);
+		this.sharks = new DisplayObjectContainer("sharks", null, this.game_layer);
 
 		this.player = new PlayerSquid("player", "player.png", this.game_layer);
 		this.player.setX(400);
@@ -99,7 +102,15 @@ class Main extends Game {
 			this.sharkPresent = true;
 		}
 
+		if(SCORE.score > (this.n2 * 10)) {
+			SPAWNER.spawnShark();
+			this.n2++;
+		}
 
+		if(this.player.strength > ((this.n3 * 20) + 100)){
+			SPAWNER.spawnShark();
+			this.n3++;
+		}
 
     }
 
