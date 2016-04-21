@@ -13,7 +13,7 @@ class PlayerSquid extends Squid {
 
 		this.speed = 6;
 		this.powerUpSelected= null;
-		this.powerUpBank = [];
+		this.powerUpBank = {};
     }
 
     /**
@@ -83,13 +83,12 @@ class PlayerSquid extends Squid {
 		}
 		// Number 4 for toggle powerup
 		if (pressedKeys.contains(52)) {
-			for (var type in this.powerUpBank) {
-				if (type != this.powerUpSelected) {
-					this.powerUpSelected = type;
-					break;
-				}
-			}
-			console.log("Power up: " + this.powerUpSelected);
+			if (this.powerUpSelected == POWER_UP.SPEED && this.powerUpBank[POWER_UP.INVINCIBLE] != null)
+				this.selectPowerUp(POWER_UP.INVINCIBLE)
+			else if (this.powerUpBank[POWER_UP.SPEED] != null)
+				this.selectPowerUp(POWER_UP.SPEED)
+
+			pressedKeys.remove(52);
 		}
     }
 
@@ -182,7 +181,7 @@ class PlayerSquid extends Squid {
 				this.powerUpBank[type] = {"count":0, "object": object, "start": null};
 			
 			this.powerUpBank[type].count++;
-			this.powerUpSelected = type;
+			this.selectPowerUp(type);
 		}
 	}
 
@@ -194,14 +193,27 @@ class PlayerSquid extends Squid {
 
 			if (type == POWER_UP.SPEED) {
 				this.speed *= 2;
+				if (this.powerUpBank[POWER_UP.INVINCIBLE] != null)
+					this.selectPowerUp(POWER_UP.INVINCIBLE);
 			}
 			else if (type == POWER_UP.INVINCIBLE) {
 				console.log("INVINCIBLE");
 				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object)
 				if (this.powerUpBank[POWER_UP.INVINCIBLE].count == 0)
 					this.powerUpBank[POWER_UP.INVINCIBLE] = null;
+				if (this.powerUpBank[POWER_UP.SPEED] != null)
+					this.selectPowerUp(POWER_UP.SPEED);
 			}
 		}
+	}
+
+	selectPowerUp(type) {
+		this.powerUpSelected = type;
+		for (var t in this.powerUpBank) {
+			if (this.powerUpBank[t] != null)
+				this.powerUpBank[t].object.displayImage = this.powerUpBank[t].object.defaultImage;
+		}
+		this.powerUpBank[type].object.displayImage = this.powerUpBank[type].object.selectedImage;
 	}
 
 	makeHitbox(){

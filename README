@@ -1,1 +1,9 @@
-Use keys 1/2 to toggle between flirt/fight mode. The player dies by losing at a fight with a squid stronger than him (the strengths are displayed above the squids' heads). Winning fights and successfully flirting increase the player's strength.
+Group members: amm4yv, erc7as and bcp7cc
+
+Use keys 1/2 to toggle between flirt/fight mode. The player dies by losing at a fight with a squid stronger than him (the strengths are proportional to the size of the squid). Winning fights and successfully flirting increase the player's strength.
+
+The goal of the game is to get score (# of squids successfully fight).
+
+Press spacebar to pause the game.
+
+Powerups should spawn every 5 increases in score (speed powerup), 10 increases in score (extra life power up) and 30 increases in score (invincibility). These will probably be higher in our actual game but are eassier to demo at this level.
