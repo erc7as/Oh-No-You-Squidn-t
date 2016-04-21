@@ -13,7 +13,7 @@ class Score extends Sprite {
 		this.score = 0;
 
 		this.createHearts();
-		this.powerUp = null;
+		this.powerUp = {};
     }
 
     update(pressedKeys){
@@ -22,23 +22,34 @@ class Score extends Sprite {
 
     addPoints() {
     	this.score++;
-    	if (this.score % 20 == 0) {
+    	if (this.score % 100 == 0) {
     		SPAWNER.spawnPowerup(POWER_UP.LIFE);
     	}
-    	else if (this.score % 40 == 0) {
+    	else if (this.score % 10 == 0) {
     		SPAWNER.spawnPowerup(POWER_UP.INVINCIBLE);
     	}
-    	else if (this.score % 10 == 0) {
+    	else if (this.score % 5 == 0) {
     		SPAWNER.spawnPowerup(POWER_UP.SPEED);
     	}
     }
 
     addPowerUp(object) {
-    	this.powerUp = object;
-    	this.powerUp.x = this.x + 850;
-    	this.powerUp.y = this.y + 5;
-    	this.powerUp.scaleX = .5;
-    	this.powerUp.scaleY = .5;
+    	if (this.powerUp[object.event] == null) {
+    		this.powerUp[object.event] = {"count" : 0, "object": object};
+    		this.powerUp[object.event].object.x = this.x + 850 + (this.powerUp.length - 1) * 60;
+	    	this.powerUp[object.event].object.y = this.y + 10;
+	    	this.powerUp[object.event].object.scaleX = .5;
+	    	this.powerUp[object.event].object.scaleY = .5;
+    	}
+    	this.powerUp[object.event].count++;
+    }
+
+    removePowerUp(object) {
+    	this.powerUp[object.event].count--; 
+    	if (this.powerUp[object.event].count == 0) {
+    		object.parent.removeChild(object);
+    		this.powerUp[object.event] = null;
+    	}
     }
 
 	draw(g){

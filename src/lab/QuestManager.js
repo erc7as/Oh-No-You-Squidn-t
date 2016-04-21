@@ -118,6 +118,14 @@ class QuestManager extends IEventListener {
 			game.player.addPowerUp(POWER_UP.LIFE, powerUp);
 			powerUp.parent.children.remove(powerUp);
 		}
+
+		if (event.eventType == POWER_UP.INVINCIBLE) {
+			var powerUp = event.getSource();
+			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.INVINCIBLE);
+			SCORE.addPowerUp(powerUp);
+
+			game.player.addPowerUp(POWER_UP.INVINCIBLE, powerUp);
+		}
 	}
 
 }

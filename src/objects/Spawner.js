@@ -74,17 +74,18 @@ class Spawner{
 
 	spawnPowerup(type) {
 		var powerup;
+		var i = this.powerup_container.getChildren().length;
 		if (type == POWER_UP.SPEED) {
-			powerup = new Sprite("speed", "gem_green.png", this.powerup_container);
+			powerup = new Sprite("speed" + i, "gem_green.png", this.powerup_container);
 		}
 		else if (type == POWER_UP.LIFE) {
-			var powerup = new Sprite("life", "gem_red.png", this.powerup_container);
+			var powerup = new Sprite("life" + i, "gem_red.png", this.powerup_container);
 		}
 		else if (type == POWER_UP.INVINCIBLE) {
-			var powerup = new Sprite("invincible", "gem_yellow.png", this.powerup_container);
+			var powerup = new Sprite("invincible" + i, "gem_yellow.png", this.powerup_container);
 		}
 		powerup.setX(Math.floor(Math.random() * 800 + 1));
-		powerup.setY(Math.floor(Math.random() * 600 + 1));
+		powerup.setY(Math.floor(Math.random() * 600 + 50));
 		powerup.event = type;
 		powerup.addEventListener(QUEST_MANAGER, type);
 	}

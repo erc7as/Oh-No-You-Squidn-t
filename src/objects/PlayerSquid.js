@@ -12,8 +12,8 @@ class PlayerSquid extends Squid {
 		this.loadMovingImages();
 
 		this.speed = 6;
-		this.powerUpStart = 0;
-		this.powerUp = null;
+		this.powerUpSelected= null;
+		this.powerUpBank = [];
     }
 
     /**
@@ -77,6 +77,21 @@ class PlayerSquid extends Squid {
 			this.checkSharkCollision();
 		}
 		this.setStrength(this.squidSize + this.confidence);
+
+		// Number 3 for use powerup
+		if (pressedKeys.contains(51)) {
+			this.usePowerUp();
+		}
+		// Number 4 for toggle powerup
+		if (pressedKeys.contains(52)) {
+			for (var type in this.powerUpBank) {
+				if (type != this.powerUpSelected) {
+					this.powerUpSelected = type;
+					break;
+				}
+			}
+			console.log("Power up: " + this.powerUpSelected);
+		}
     }
 
 	draw(g){
@@ -93,10 +108,15 @@ class PlayerSquid extends Squid {
 		this.vx *= .95;
 		this.vy *= .95;
 
-		if (this.speed > 10 && (gameClock - this.powerUpStart) > 100) {
+		// Turn off speed
+		if (this.powerUpBank[POWER_UP.SPEED] != null 
+			&& this.speed > 10 
+			&& (gameClock - this.powerUpBank[POWER_UP.SPEED].start) > 100) {
+
 			this.speed = 6;
-			this.powerUp.parent.removeChild(this.powerUp);
-			this.powerUp = null;
+			SCORE.removePowerUp(this.powerUpBank[POWER_UP.SPEED].object)
+			if (this.powerUpBank[POWER_UP.SPEED].count == 0)
+				this.powerUpBank[POWER_UP.SPEED] = null;
 		}
 
 		// water
@@ -155,15 +175,34 @@ class PlayerSquid extends Squid {
 	}
 
 	addPowerUp(type, object) {
-		this.powerUpStart = gameClock;
-		this.powerUp = object;
-		if (type == POWER_UP.SPEED) {
-			this.speed *= 2;
-		}
-		else if (type == POWER_UP.LIFE) {
+		if (type == POWER_UP.LIFE) {
 			this.lives++;
 		}
+		else {
+			if (this.powerUpBank[type] == null)
+				this.powerUpBank[type] = {"count":0, "object": object, "start": null};
+			
+			this.powerUpBank[type].count++;
+			this.powerUpSelected = type;
+		}
+	}
 
+	usePowerUp() {
+		var type = this.powerUpSelected;
+		if (this.powerUpBank[type] != null && this.powerUpBank[type].count > 0) {
+			this.powerUpBank[type].count--;
+			this.powerUpBank[type].start = gameClock;
+
+			if (type == POWER_UP.SPEED) {
+				this.speed *= 2;
+			}
+			else if (type == POWER_UP.INVINCIBLE) {
+				console.log("INVINCIBLE");
+				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object)
+				if (this.powerUpBank[POWER_UP.INVINCIBLE].count == 0)
+					this.powerUpBank[POWER_UP.INVINCIBLE] = null;
+			}
+		}
 	}
 
 	makeHitbox(){
