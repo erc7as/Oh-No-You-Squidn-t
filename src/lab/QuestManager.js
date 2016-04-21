@@ -95,6 +95,13 @@ class QuestManager extends IEventListener {
 			SOUND_MANAGER.playSoundEffect("fightLost");
 		}
 
+
+		if (event.eventType == SHARK_DESPAWN) {
+			var shark = event.getSource();
+			shark.removeEventListener(QUEST_MANAGER, SHARK_DESPAWN);
+			shark.parent.children.remove(shark);
+		}
+
 		if (event.eventType == SQUID_SPAWN) {
 			var squid = event.getSource();
 			var squidEnterTween = new Tween(squid);
@@ -117,6 +124,7 @@ class QuestManager extends IEventListener {
 			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.LIFE);
 			game.player.addPowerUp(POWER_UP.LIFE, powerUp);
 			powerUp.parent.children.remove(powerUp);
+
 		}
 
 		if (event.eventType == POWER_UP.INVINCIBLE) {

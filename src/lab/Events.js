@@ -51,6 +51,14 @@ class SharkEvent extends Event {
 	}
 }
 
+
+class SharkDespawn extends Event {
+
+	constructor(source) {
+		super(SHARK_DESPAWN, source);
+	}
+}
+
 class SpawnSquid extends Event {
 	constructor(source, sx, sy, dx, dy){
 		super(SQUID_SPAWN, source);
@@ -60,3 +68,4 @@ class SpawnSquid extends Event {
 		this.dy = dy;
 	}
 }
+

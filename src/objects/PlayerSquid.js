@@ -72,10 +72,9 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		this.checkSharkCollision();
+		this.checkSharkRemoval();
 		this.checkPowerUpCollision();
-		if (this.parent.sharkPresent){
-			this.checkSharkCollision();
-		}
 		this.setStrength(this.squidSize + this.confidence);
 
 		// Number 3 for use powerup
@@ -257,7 +256,6 @@ class PlayerSquid extends Squid {
 
 	checkSharkCollision() {
 		var shark = this.parent.getChildById("sharks").getChildren();
-		console.log("shark?");
 		for (var i = 0; i < shark.size(); i++) {
 			if(this.collidesWith(shark.get(i))) {
 				shark.get(i).dispatchEvent(new SharkEvent(shark.get(i)));
@@ -268,5 +266,16 @@ class PlayerSquid extends Squid {
 			}
 		}
 
+	}
+	
+	checkSharkRemoval() {
+		var shark = this.parent.getChildById("sharks").getChildren();
+		for (var i = 0; i < shark.size(); i++) {
+			if ((shark.get(i).lr == 0) && (shark.get(i).x < 0-shark.get(i).w)){
+				shark.get(i).dispatchEvent(new SharkDespawn(shark.get(i)));
+			} else if (shark.get(i).x > 1000) {
+				shark.get(i).dispatchEvent(new SharkDespawn(shark.get(i)));
+			}
+		}
 	}
 }
