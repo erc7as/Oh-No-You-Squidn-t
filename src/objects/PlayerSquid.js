@@ -72,7 +72,8 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
-		this.checkSharkCollision();
+		if (this.powerUpBank[POWER_UP.INVINCIBLE] == null || this.powerUpBank[POWER_UP.INVINCIBLE].start == null)
+			this.checkSharkCollision();
 		this.checkSharkRemoval();
 		this.checkPowerUpCollision();
 		this.setStrength(this.squidSize + this.confidence);
@@ -201,6 +202,7 @@ class PlayerSquid extends Squid {
 				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object)
 				if (this.powerUpBank[POWER_UP.INVINCIBLE].count == 0)
 					this.powerUpBank[POWER_UP.INVINCIBLE] = null;
+				
 				if (this.powerUpBank[POWER_UP.SPEED] != null)
 					this.selectPowerUp(POWER_UP.SPEED);
 			}
