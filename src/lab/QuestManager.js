@@ -17,7 +17,7 @@ class QuestManager extends IEventListener {
 				var ratio = game.player.strength/npc.strength;
 				var rand = Math.random();
 				var rand2 = Math.random();
-				if (ratio >= 1) {
+				if (ratio >= 1 || PLAYER.invincible) {
 					npc.parent.children.remove(npc);
 					SCORE.addPoints();
 					SPAWNER.spawnSquid();
@@ -59,8 +59,8 @@ class QuestManager extends IEventListener {
 			SPAWNER.spawnFood();  // Spawn new Food
 			var food = event.getSource();
 			food.exitTween1 = new Tween(food);
-			food.exitTween1.animate(TweenableParam.SCALE_X, .5, 2, 500);
-			food.exitTween1.animate(TweenableParam.SCALE_Y, .5, 2, 500);
+			food.exitTween1.animate(TweenableParam.SCALE_X, .1, .4, 500);
+			food.exitTween1.animate(TweenableParam.SCALE_Y, .1, .4, 500);
 			food.exitTween1.animate(TweenableParam.X, food.getX(), 300, 500);
 			food.exitTween1.animate(TweenableParam.Y, food.getY(), 150, 500);
 

@@ -2,8 +2,8 @@
 
 class Food extends Sprite {
 	constructor(id, parent){
-		super(id, "Steak.png", parent);
-		this.setScaleX(.3);
-		this.setScaleY(.3);
+		super(id, "shrimp.png", parent);
+		this.setScaleX(.05);
+		this.setScaleY(.05);
 	}
 }

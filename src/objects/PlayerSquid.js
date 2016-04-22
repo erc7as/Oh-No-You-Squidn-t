@@ -10,7 +10,7 @@ class PlayerSquid extends Squid {
 		this.defaultImage = this.displayImage;
 		this.movingImages = {"flirt": {"Right": null, "Left": null, "Up": null, "Down": null}, "fight": {"Default": null, "Right": null, "Left": null, "Up": null, "Down": null}};
 		this.loadMovingImages();
-
+		this.invincible = false;
 		this.speed = 6;
 		this.powerUpSelected= null;
 		this.powerUpBank = {};
@@ -72,6 +72,7 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
+		if (!this.invincible)
 		this.checkSharkCollision();
 		this.checkSharkRemoval();
 		this.checkPowerUpCollision();
@@ -115,6 +116,11 @@ class PlayerSquid extends Squid {
 			SCORE.removePowerUp(this.powerUpBank[POWER_UP.SPEED].object)
 			if (this.powerUpBank[POWER_UP.SPEED].count == 0)
 				this.powerUpBank[POWER_UP.SPEED] = null;
+		}
+
+		if (this.invincible
+			&& (gameClock - this.powerUpBank[POWER_UP.INVINCIBLE].start > 100)) {
+			this.invincible = false;
 		}
 
 		// water
@@ -199,6 +205,7 @@ class PlayerSquid extends Squid {
 			else if (type == POWER_UP.INVINCIBLE) {
 				console.log("INVINCIBLE");
 				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object)
+				this.invincible = true;
 				if (this.powerUpBank[POWER_UP.INVINCIBLE].count == 0)
 					this.powerUpBank[POWER_UP.INVINCIBLE] = null;
 				if (this.powerUpBank[POWER_UP.SPEED] != null)
