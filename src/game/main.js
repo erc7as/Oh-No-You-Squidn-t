@@ -28,8 +28,8 @@ class Main extends Game {
 
 
 		this.game_layer = new DisplayObjectContainer("game", null, this.root);
-		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
 		this.food_layer = new DisplayObjectContainer("foods", null, this.game_layer);
+		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
 		this.sharks = new DisplayObjectContainer("sharks", null, this.game_layer);
 
 		this.player = new PlayerSquid("player", "player.png", this.game_layer);
@@ -42,10 +42,13 @@ class Main extends Game {
 		this.player.eyes.y = 44;
 
 		SCORE = new Score("score", null, this.game_layer, width);
-		SOUND_MANAGER.loadSoundEffect("coin", "coin.wav");
-		SOUND_MANAGER.loadSoundEffect("flirt", "flirt.wav");
-		SOUND_MANAGER.loadSoundEffect("fightWon", "fightWon.wav");
-		SOUND_MANAGER.loadSoundEffect("fightLost", "fightLost.wav");
+		SOUND_MANAGER.loadSoundEffect("food", "pick_up.wav");
+		SOUND_MANAGER.loadSoundEffect("gem", "ping.wav");
+		SOUND_MANAGER.loadSoundEffect("success_flirt", "success.wav");
+		SOUND_MANAGER.loadSoundEffect("fail", "fail.mp3");
+		SOUND_MANAGER.loadSoundEffect("success_fight", "bloibb.mp3");
+		SOUND_MANAGER.loadMusic("bubbles", "bubbles.wav");
+		SOUND_MANAGER.playMusic("bubbles", this);
 
 		SPAWNER.setSquidContainer(this.npcs);
 		SPAWNER.setFoodContainer(this.food_layer);

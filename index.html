@@ -3,6 +3,38 @@
 <head>
 <meta charset="utf-8"/>
 <style type="text/css">
+@font-face {
+    font-family: "Title";
+    src: url("./resources/title.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Info";
+    src: url("./resources/info.ttf") format("truetype");
+}
+
+h1 {
+  font-family: "Title";
+  font-size: 48px;
+  color: #265BFF;
+}
+
+input[type="button"] {
+  font-family: "Title";
+  font-size: 18px;
+  background: #FFF1D4; /* this is a light blue */
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  text-shadow:0px 1px 0px #2f6627;
+  border:1px solid #FFCC0B;
+  cursor:pointer;
+}
+
+input[type="button"]:hover {
+  background-color:#FFE06A;
+}
+
+
 #wrapper {
   width: 80%;     /* specify a width! */
   margin: 0 auto; /* center */
@@ -28,7 +60,7 @@
 
 #controls
 {
-  top: 20%;
+  top: 10%;
   left: 0;
   position: absolute;
   width: 100%;

@@ -22,10 +22,10 @@ class Score extends Sprite {
 
     addPoints() {
     	this.score++;
-    	if (this.score % 30 == 0 && PLAYER.powerUpBank[POWER_UP.INVINCIBLE] == null) {
+    	if (this.score % 10 == 0 && PLAYER.powerUpBank[POWER_UP.INVINCIBLE] == null) {
     		SPAWNER.spawnPowerup(POWER_UP.INVINCIBLE);
     	}
-    	else if (this.score % 10 == 0) {
+    	else if (this.score % 10 == 0 && PLAYER.lives < 3) {
     		SPAWNER.spawnPowerup(POWER_UP.LIFE);
     	}
     	else if (this.score % 5 == 0 && PLAYER.powerUpBank[POWER_UP.SPEED] == null) {
@@ -56,13 +56,15 @@ class Score extends Sprite {
 
 	draw(g){
 		super.draw(g);
-		g.fillStyle = "#FFFFFF";
+		g.fillStyle = "#265BFF";
+		g.globalAlpha = 0.8;
 		g.fillRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
-		g.strokeStyle = "#000000";
+		g.strokeStyle = "#00207E";
 		g.strokeRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
 		
-		g.fillStyle = "#000000";
-		g.font = "30px Helvetica";
+		g.globalAlpha = 1;
+		g.fillStyle = "#FFFFFF";
+		g.font = "Lighter 30px Helvetica Neue";
 		g.fillText("Score:", this.x + 5, this.y + 35);
 
 		//g.font = "20px Helvetica";
@@ -71,14 +73,14 @@ class Score extends Sprite {
 		g.fillText("Strength:", this.x + 150, this.y + 35);
 		g.fillText(Math.round(game.player.strength), this.x + 280, this.y + 35);
 
-		g.font = "10px Helvetica";
+		g.font = "Lighter 10px Helvetica Neue";
 		g.fillText("Size:", this.x + 340, this.y + 20);
 		g.fillText(Math.round(game.player.squidSize), this.x + 400, this.y + 20);
 
 		g.fillText("Confidence:", this.x + 340, this.y + 35);
 		g.fillText(Math.round(game.player.confidence), this.x + 400, this.y + 35);
 
-		g.font = "30px Helvetica";
+		g.font = "Lighter 30px Helvetica Neue";
 		g.fillText("Lives:", this.x + 440, this.y + 35);
 		var heartNum = 0;
 		// Draw full hearts

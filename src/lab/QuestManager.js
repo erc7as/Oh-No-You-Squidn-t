@@ -17,22 +17,22 @@ class QuestManager extends IEventListener {
 				var ratio = game.player.strength/npc.strength;
 				var rand = Math.random();
 				var rand2 = Math.random();
-				if (ratio >= 1) {
+				if (ratio >= 1 || PLAYER.invincible) {
 					npc.parent.children.remove(npc);
 					SCORE.addPoints();
 					SPAWNER.spawnSquid();
-					SOUND_MANAGER.playSoundEffect("fightWon");
+					SOUND_MANAGER.playSoundEffect("success_fight");
 				}
 				else if (rand <= ratio && rand2 <= ratio){
 					npc.parent.children.remove(npc);
 					SCORE.addPoints();
 					SPAWNER.spawnSquid();
-					SOUND_MANAGER.playSoundEffect("fightWon");
+					SOUND_MANAGER.playSoundEffect("success_fight");
 				}
 				else {
 					game.player.lives--;
 					console.log("lost a life!!!");
-					SOUND_MANAGER.playSoundEffect("fightLost");
+					SOUND_MANAGER.playSoundEffect("fail");
 				}
 			}
 			else {
@@ -40,11 +40,11 @@ class QuestManager extends IEventListener {
 				var rand = Math.random();
 				if (ratio >= 1) {
 					game.player.confidence++;
-					SOUND_MANAGER.playSoundEffect("flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt");
 				}
 				else if (rand <= ratio){
 					game.player.confidence += 1/ratio;
-					SOUND_MANAGER.playSoundEffect("flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt");
 				}
 				else {
 					game.player.confidence -= 1/ratio;
@@ -55,12 +55,12 @@ class QuestManager extends IEventListener {
 
 		// Part of Coin object
 		if (event.eventType == FOOD_PICKED_UP) {
-			SOUND_MANAGER.playSoundEffect("coin");
+			SOUND_MANAGER.playSoundEffect("food");
 			SPAWNER.spawnFood();  // Spawn new Food
 			var food = event.getSource();
 			food.exitTween1 = new Tween(food);
-			food.exitTween1.animate(TweenableParam.SCALE_X, .5, 2, 500);
-			food.exitTween1.animate(TweenableParam.SCALE_Y, .5, 2, 500);
+			food.exitTween1.animate(TweenableParam.SCALE_X, .1, .4, 500);
+			food.exitTween1.animate(TweenableParam.SCALE_Y, .1, .4, 500);
 			food.exitTween1.animate(TweenableParam.X, food.getX(), 300, 500);
 			food.exitTween1.animate(TweenableParam.Y, food.getY(), 150, 500);
 
@@ -92,7 +92,7 @@ class QuestManager extends IEventListener {
 			shark.removeEventListener(QUEST_MANAGER, SHARK_ATTACK);
 			game.player.lives--;
 			console.log("lost a life!!!");
-			SOUND_MANAGER.playSoundEffect("fightLost");
+			SOUND_MANAGER.playSoundEffect("fail");
 		}
 
 

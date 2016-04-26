@@ -24,7 +24,7 @@ class SoundManager {
 	}
 
 	playMusic(id, game) {
-		this.music[id].volume = 0.25;
+		this.music[id].volume = 0.40;
 		//if (game.playing)
 			this.music[id].play();
 	} //music loops and plays forever, consider adding a parameter for looping

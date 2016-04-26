@@ -9,8 +9,18 @@ class PlayerSquid extends Squid {
 		this.lives = 3;
 		this.defaultImage = this.displayImage;
 		this.movingImages = {"flirt": {"Right": null, "Left": null, "Up": null, "Down": null}, "fight": {"Default": null, "Right": null, "Left": null, "Up": null, "Down": null}};
-		this.loadMovingImages();
 
+		this.glowBackground = {"speed": new DisplayObjectContainer("playerSpeed", "glow_speed.png", this), "invincible": new DisplayObjectContainer("playerInvincible", "glow_invincible.png", this)};
+		
+		for (var type in this.glowBackground) {
+			var o = this.glowBackground[type];
+			o.setVisible(false);
+			o.setX(-29);	// Glow is bigger than player image so have to offset
+			o.setY(-16.5);
+		}
+
+		this.loadMovingImages();
+		this.invincible = false;
 		this.speed = 6;
 		this.powerUpSelected= null;
 		this.powerUpBank = {};
@@ -72,7 +82,7 @@ class PlayerSquid extends Squid {
 
 		this.checkSquidCollision();
 		this.checkFoodCollision();
-		if (this.powerUpBank[POWER_UP.INVINCIBLE] == null || this.powerUpBank[POWER_UP.INVINCIBLE].start == null)
+		if (!this.invincible)	// Invincibility power up
 			this.checkSharkCollision();
 		this.checkSharkRemoval();
 		this.checkPowerUpCollision();
@@ -81,6 +91,7 @@ class PlayerSquid extends Squid {
 		// Number 3 for use powerup
 		if (pressedKeys.contains(51)) {
 			this.usePowerUp();
+			pressedKeys.remove(51);
 		}
 		// Number 4 for toggle powerup
 		if (pressedKeys.contains(52)) {
@@ -113,9 +124,14 @@ class PlayerSquid extends Squid {
 			&& (gameClock - this.powerUpBank[POWER_UP.SPEED].start) > 100) {
 
 			this.speed = 6;
-			SCORE.removePowerUp(this.powerUpBank[POWER_UP.SPEED].object)
-			if (this.powerUpBank[POWER_UP.SPEED].count == 0)
-				this.powerUpBank[POWER_UP.SPEED] = null;
+			this.powerUpBank[POWER_UP.SPEED] = null;
+			this.glowBackground.speed.setVisible(false);
+		}
+
+		if (this.invincible
+			&& (gameClock - this.powerUpBank[POWER_UP.INVINCIBLE].start > 100)) {
+			this.invincible = false;
+			this.glowBackground.invincible.setVisible(false);
 		}
 
 		// water
@@ -194,14 +210,19 @@ class PlayerSquid extends Squid {
 
 			if (type == POWER_UP.SPEED) {
 				this.speed *= 2;
+				this.glowBackground.speed.setVisible(true);
+				
+				SCORE.removePowerUp(this.powerUpBank[POWER_UP.SPEED].object);
+
 				if (this.powerUpBank[POWER_UP.INVINCIBLE] != null)
 					this.selectPowerUp(POWER_UP.INVINCIBLE);
 			}
 			else if (type == POWER_UP.INVINCIBLE) {
 				console.log("INVINCIBLE");
-				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object)
-				if (this.powerUpBank[POWER_UP.INVINCIBLE].count == 0)
-					this.powerUpBank[POWER_UP.INVINCIBLE] = null;
+				this.invincible = true;
+				this.glowBackground.invincible.setVisible(true);
+
+				SCORE.removePowerUp(this.powerUpBank[POWER_UP.INVINCIBLE].object);
 				
 				if (this.powerUpBank[POWER_UP.SPEED] != null)
 					this.selectPowerUp(POWER_UP.SPEED);

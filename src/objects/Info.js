@@ -18,6 +18,7 @@ class Info extends Sprite {
 
 		this.welcomeScreen = new DisplayObject("welcomeScreen", "welcome.png", null);
 		this.pauseScreen = new DisplayObject("pauseScreen", "pause.png", null);
+		this.endScreen = new DisplayObject("endScreen", "end.png", null);
 
 		this.screen = this.WELCOME;
 		this.drawScreen();
@@ -47,6 +48,8 @@ class Info extends Sprite {
 			else if (this.screen == this.PAUSE) {
 				this.pauseScreen.draw(g);
 			}
+			else if (this.screen == this.END)
+				this.endScreen.draw(g);
 
 			this.reverseTransformations(g);
 			g.restore();	
@@ -71,6 +74,7 @@ class Info extends Sprite {
 		else if (this.screen == this.PAUSE) {
 			var info = this;
 			//var text = "<h1>Game Paused</h1>";
+			document.getElementById("controls").style.top = "20%";
 			var button = document.createElement("input");
 			button.type = "button";
 			button.value = "Resume Game";
@@ -82,14 +86,14 @@ class Info extends Sprite {
 		}
 		else if (this.screen == this.END) {
 			var info = this;
-			var text = "<h1>Game Over!</h1>";
-			text += "<h2>Score: " + SCORE.score + "</h2>";
+			var text = "<br/><br/><h1>Score: " + SCORE.score + "</h1>";
 			// var button = document.createElement("input");
 			// button.type = "button";
 			// button.value = "Resume Game";
 			// button.onclick = function() {
 			// 	info.hide();
 			// }
+			document.getElementById("controls").style.top = "30%";
 			document.getElementById("controls").innerHTML = text;
 			// document.getElementById("controls").appendChild(button);
 		}	
