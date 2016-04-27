@@ -20,6 +20,12 @@ class Squid extends PhysicsSprite {
 		this.strength = strength;
 	}
 
+	// Overwritten from DisplayObject to make it smaller for squids
+    getWorldHitbox() {
+		var worldPoint = this.convertCoordinates();
+		return new Hitbox(worldPoint.x + this.getWidth() * 3/15, worldPoint.y, this.getWidth() * 3/5, this.getHeight() * 3/4);
+	}
+
     makeHitbox(){
 		return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 1/2));   
     }

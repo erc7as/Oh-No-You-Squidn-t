@@ -11,11 +11,18 @@ class Shark extends PhysicsSprite {
         this.moveTimer = new GameClock();
         this.movePower = 0.1;  // speed of movement
         this.delayed = false;
-        this.lr = Math.floor(Math.random() * 2);
+        //this.lr = Math.floor(Math.random() * 2);
+        this.lr = 1;
     }
 
     makeHitbox(){
         return (new Hitbox(this.getX(), this.getY(), this.getWidth(), this.getHeight(), 1/2));
+    }
+
+    // Overwritten from DisplayObject to make it flip properly and to have small height
+    getWorldHitbox() {
+        var worldPoint = this.convertCoordinates();
+        return new Hitbox(worldPoint.x, worldPoint.y + this.getHeight() * 3/15, this.getWidth(), this.getHeight() * 3/5, 1, this);
     }
 
     activateMoveDelay(){

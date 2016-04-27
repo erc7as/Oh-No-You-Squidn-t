@@ -6,9 +6,18 @@
  * */
 class Hitbox {
 	
-	constructor(x, y, w, h, scale){
-		this.x = x;
-		this.y = y;
+	constructor(x, y, w, h, scale, object){
+		this.flipped = false;
+		if (object && object.flipped) {
+			this.x = x + w;
+			this.y = y;
+			this.flipped = true;
+		}
+		else {
+			this.x = x;
+			this.y = y;
+		}
+		
 		this.w = w;
 		this.h = h;
 		this.color = "#000000";
@@ -23,8 +32,14 @@ class Hitbox {
 	}
 
 	update(hitbox) {
-		this.x = hitbox.x;
-		this.y = hitbox.y;
+		if (this.flipped) {
+			this.x = hitbox.x + hitbox.w;
+			this.y = hitbox.y + hitbox.h;
+		}
+		else {
+			this.x = hitbox.x;
+			this.y = hitbox.y;
+		}
 		this.w = hitbox.w * this.scale;
 		this.h = hitbox.h * this.scale;
 		if (this.scale != 1) {

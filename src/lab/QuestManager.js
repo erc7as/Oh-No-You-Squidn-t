@@ -112,6 +112,7 @@ class QuestManager extends IEventListener {
 		}
 
 		if (event.eventType == POWER_UP.SPEED) {
+			SOUND_MANAGER.playSoundEffect("gem");
 			var powerUp = event.getSource();
 			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.SPEED);
 			SCORE.addPowerUp(powerUp);
@@ -120,6 +121,7 @@ class QuestManager extends IEventListener {
 		}
 
 		if (event.eventType == POWER_UP.LIFE) {
+			SOUND_MANAGER.playSoundEffect("gem");
 			var powerUp = event.getSource();
 			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.LIFE);
 			game.player.addPowerUp(POWER_UP.LIFE, powerUp);
@@ -128,6 +130,7 @@ class QuestManager extends IEventListener {
 		}
 
 		if (event.eventType == POWER_UP.INVINCIBLE) {
+			SOUND_MANAGER.playSoundEffect("gem");
 			var powerUp = event.getSource();
 			powerUp.removeEventListener(QUEST_MANAGER, POWER_UP.INVINCIBLE);
 			SCORE.addPowerUp(powerUp);

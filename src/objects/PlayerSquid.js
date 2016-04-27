@@ -56,6 +56,12 @@ class PlayerSquid extends Squid {
 	this.moveTimer.resetGameClock();
     }
 
+    // Overwritten from DisplayObject to make it smaller for squids
+    getWorldHitbox() {
+		var worldPoint = this.convertCoordinates();
+		return new Hitbox(worldPoint.x + this.getWidth() * 3/15, worldPoint.y, this.getWidth() * 3/5, this.getHeight() * 3/4);
+	}
+
     delayElapsed(){
 		return (this.moveTimer.getElapsedTime() >= this.moveDelay);
     }
