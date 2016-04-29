@@ -94,19 +94,19 @@ class PlayerSquid extends Squid {
 		this.checkPowerUpCollision();
 		this.setStrength(this.squidSize + this.confidence);
 
-		// Number 3 for use powerup
-		if (pressedKeys.contains(51)) {
+		// Number 2 for use powerup
+		if (pressedKeys.contains(50)) {
 			this.usePowerUp();
-			pressedKeys.remove(51);
+			pressedKeys.remove(50);
 		}
 		// Number 4 for toggle powerup
-		if (pressedKeys.contains(52)) {
+		if (pressedKeys.contains(51)) {
 			if (this.powerUpSelected == POWER_UP.SPEED && this.powerUpBank[POWER_UP.INVINCIBLE] != null)
 				this.selectPowerUp(POWER_UP.INVINCIBLE)
 			else if (this.powerUpBank[POWER_UP.SPEED] != null)
 				this.selectPowerUp(POWER_UP.SPEED)
 
-			pressedKeys.remove(52);
+			pressedKeys.remove(51);
 		}
     }
 

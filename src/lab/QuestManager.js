@@ -40,11 +40,11 @@ class QuestManager extends IEventListener {
 				var rand = Math.random();
 				if (ratio >= 1) {
 					game.player.confidence++;
-					SOUND_MANAGER.playSoundEffect("success_flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt", 0.3);
 				}
 				else if (rand <= ratio){
 					game.player.confidence += 1/ratio;
-					SOUND_MANAGER.playSoundEffect("success_flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt", 0.3);
 				}
 				else {
 					game.player.confidence -= 1/ratio;

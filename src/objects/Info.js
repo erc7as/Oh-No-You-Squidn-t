@@ -95,6 +95,19 @@ class Info extends Sprite {
 			// }
 			document.getElementById("controls").style.top = "30%";
 			document.getElementById("controls").innerHTML = text;
+
+			var button = document.createElement("input");
+			button.type = "button";
+			button.value = "Start New Game";
+			button.onclick = function() {
+				document.getElementById("controls").innerHTML = "";
+				document.getElementById("controls").style.top = "10%";
+				var drawingCanvas = document.getElementById('game');
+				game = new Main(drawingCanvas);
+				game.start();
+			}
+			//document.getElementById("controls").innerHTML = text;
+			document.getElementById("controls").appendChild(button);
 			// document.getElementById("controls").appendChild(button);
 		}	
 

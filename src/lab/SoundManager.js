@@ -15,7 +15,8 @@ class SoundManager {
 		this.soundEffects[id] = new Audio('resources/' + filename);
 	}
 
-	playSoundEffect(id) {
+	playSoundEffect(id, volume) {
+		if (volume) this.soundEffects[id].volume = volume;
 		this.soundEffects[id].play();
 	} //sound effects are short and are removed once complete
 
@@ -25,7 +26,16 @@ class SoundManager {
 
 	playMusic(id, game) {
 		this.music[id].volume = 0.40;
-		//if (game.playing)
+		this.music[id].loop = true;
+		//while (game.playing)
 			this.music[id].play();
 	} //music loops and plays forever, consider adding a parameter for looping
+
+	pauseMusic(id, game) {
+		this.music[id].pause();
+	}
+
+	unpauseMusic(id, game) {
+		this.music[id].play();
+	}
 }
