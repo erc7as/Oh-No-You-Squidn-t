@@ -11,8 +11,7 @@ class Shark extends PhysicsSprite {
         this.moveTimer = new GameClock();
         this.movePower = 0.1;  // speed of movement
         this.delayed = false;
-        //this.lr = Math.floor(Math.random() * 2);
-        this.lr = 1;
+        this.lr = Math.floor(Math.random() * 2);
     }
 
     makeHitbox(){
