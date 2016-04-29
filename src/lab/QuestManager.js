@@ -41,10 +41,32 @@ class QuestManager extends IEventListener {
 				if (ratio >= 1) {
 					game.player.confidence++;
 					SOUND_MANAGER.playSoundEffect("success_flirt");
+					var sprite = new Sprite(-1,"hearts.png",npc);
+					sprite.setScaleX(0.05);
+					sprite.setScaleY(0.05);
+					sprite.setAlpha(0.5);
+					var tween = new Tween(sprite);
+					tween.animate(TweenableParam.X, 50, -25, 500);
+					tween.animate(TweenableParam.Y, 50, -25, 500);
+					tween.animate(TweenableParam.SCALE_X, .001, .08, 500);
+					tween.animate(TweenableParam.SCALE_Y, .001, .08, 500);
+					tween.animate(TweenableParam.ALPHA, .9, .0000000, 500);
+					tweenJuggler.add(tween);
 				}
 				else if (rand <= ratio){
 					game.player.confidence += 1/ratio;
 					SOUND_MANAGER.playSoundEffect("success_flirt");
+					var sprite = new Sprite(-1,"hearts.png", npc);
+					sprite.setScaleX(0.05);
+					sprite.setScaleY(0.05);
+					sprite.setAlpha(0.7);
+					var tween = new Tween(sprite);
+					tween.animate(TweenableParam.X, 50, -25, 500);
+					tween.animate(TweenableParam.Y, 50, -25, 500);
+					tween.animate(TweenableParam.SCALE_X, .001, .08, 500);
+					tween.animate(TweenableParam.SCALE_Y, .001, .08, 500);
+					tween.animate(TweenableParam.ALPHA, .9, .0000000, 500);
+					tweenJuggler.add(tween);
 				}
 				else {
 					game.player.confidence -= 1/ratio;
