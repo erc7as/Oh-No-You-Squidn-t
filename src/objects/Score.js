@@ -64,7 +64,7 @@ class Score extends Sprite {
 		
 		g.globalAlpha = 1;
 		g.fillStyle = "#FFFFFF";
-		g.font = "Lighter 30px Helvetica Neue";
+		g.font = "Lighter 30px Arial";
 		g.fillText("Score:", this.x + 5, this.y + 35);
 
 		//g.font = "20px Helvetica";
@@ -73,14 +73,14 @@ class Score extends Sprite {
 		g.fillText("Strength:", this.x + 150, this.y + 35);
 		g.fillText(Math.round(game.player.strength), this.x + 280, this.y + 35);
 
-		g.font = "Lighter 10px Helvetica Neue";
+		g.font = "Lighter 10px Arial";
 		g.fillText("Size:", this.x + 340, this.y + 20);
 		g.fillText(Math.round(game.player.squidSize), this.x + 400, this.y + 20);
 
 		g.fillText("Confidence:", this.x + 340, this.y + 35);
 		g.fillText(Math.round(game.player.confidence), this.x + 400, this.y + 35);
 
-		g.font = "Lighter 30px Helvetica Neue";
+		g.font = "Lighter 30px Arial";
 		g.fillText("Lives:", this.x + 440, this.y + 35);
 		var heartNum = 0;
 		// Draw full hearts

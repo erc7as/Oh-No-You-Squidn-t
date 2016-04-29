@@ -48,7 +48,12 @@ class Main extends Game {
 		SOUND_MANAGER.loadSoundEffect("fail", "fail.mp3");
 		SOUND_MANAGER.loadSoundEffect("success_fight", "bloibb.mp3");
 		SOUND_MANAGER.loadMusic("bubbles", "bubbles.wav");
+		SOUND_MANAGER.loadMusic("background", "melodyoflight.mp3");
+		SOUND_MANAGER.playMusic("background", this);
 		SOUND_MANAGER.playMusic("bubbles", this);
+		SOUND_MANAGER.loadSoundEffect("shark", "Jaws_theme.mp3");
+		
+
 
 		SPAWNER.setSquidContainer(this.npcs);
 		SPAWNER.setFoodContainer(this.food_layer);
@@ -88,16 +93,17 @@ class Main extends Game {
 		}
 		
 
-		// Number 1 for Flirt mode
+		// Number 1 for toggle mode
 		if (pressedKeys.contains(49)) {
-			this.mode = "Flirt";
-			this.player.displayImage = this.player.defaultImage;
+			this.mode = this.mode == "Flirt" ? "Fight" : "Flirt";
+			this.player.displayImage = this.mode == "Flirt" ? this.player.defaultImage : this.player.movingImages.fight.Default;
+			pressedKeys.remove(49);
 		}
 		// Number 2 for Fight mode
-		if (pressedKeys.contains(50)) {
-			this.mode = "Fight";
-			this.player.displayImage = this.player.movingImages.fight.Default;
-		}
+		// if (pressedKeys.contains(50)) {
+		// 	this.mode = "Fight";
+		// 	this.player.displayImage = this.player.movingImages.fight.Default;
+		// }
 
 		// Spacebar for pause
 		if (pressedKeys.contains(32)) {
@@ -162,4 +168,5 @@ var drawingCanvas = document.getElementById('game');
 if(drawingCanvas.getContext) {
 	game = new Main(drawingCanvas);
 	game.start();
+	game.paused = true;
 }
