@@ -51,6 +51,8 @@ class Main extends Game {
 		SOUND_MANAGER.loadMusic("background", "melodyoflight.mp3");
 		SOUND_MANAGER.playMusic("background", this);
 		SOUND_MANAGER.playMusic("bubbles", this);
+		SOUND_MANAGER.loadSoundEffect("shark", "Jaws_theme.mp3");
+		
 
 
 		SPAWNER.setSquidContainer(this.npcs);
