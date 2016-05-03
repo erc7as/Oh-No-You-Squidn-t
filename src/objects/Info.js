@@ -16,12 +16,11 @@ class Info extends Sprite {
 		this.PAUSE = "Game pause screen";
 		this.END = "Game over screen";
 
-		this.welcomeScreen = new DisplayObject("welcomeScreen", "welcome.png", null);
 		this.pauseScreen = new DisplayObject("pauseScreen", "pause.png", null);
 		this.endScreen = new DisplayObject("endScreen", "end.png", null);
 
-		this.screen = this.WELCOME;
-		this.drawScreen();
+		//this.screen = this.WELCOME;
+		//this.drawScreen();
     }
 
     update(pressedKeys){
@@ -86,13 +85,10 @@ class Info extends Sprite {
 		}
 		else if (this.screen == this.END) {
 			var info = this;
-			var text = "<br/><br/><h1>Score: " + SCORE.score + "</h1>";
-			// var button = document.createElement("input");
-			// button.type = "button";
-			// button.value = "Resume Game";
-			// button.onclick = function() {
-			// 	info.hide();
-			// }
+			if (SCORE.score > localStorage.highScore)
+				localStorage.highScore = SCORE.score;
+			var text = "<br/><br/><h1>Score: " + SCORE.score;
+			text += "<br/><br/>HIGH Score: " + localStorage.highScore + "</h1>";
 			document.getElementById("controls").style.top = "30%";
 			document.getElementById("controls").innerHTML = text;
 
@@ -102,6 +98,7 @@ class Info extends Sprite {
 			button.onclick = function() {
 				document.getElementById("controls").innerHTML = "";
 				document.getElementById("controls").style.top = "10%";
+				SOUND_MANAGER = new SoundManager();
 				var drawingCanvas = document.getElementById('game');
 				game = new Main(drawingCanvas);
 				game.start();

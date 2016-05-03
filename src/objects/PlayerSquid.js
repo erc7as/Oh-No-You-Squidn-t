@@ -86,12 +86,17 @@ class PlayerSquid extends Squid {
 		if (pressedKeys.contains(40)) // Down
 			this.goDown();
 
-		this.checkSquidCollision();
-		this.checkFoodCollision();
-		if (!this.invincible)	// Invincibility power up
+		if (this.parent.getChildById("npcs"))
+			this.checkSquidCollision();
+		if (this.parent.getChildById("foods"))
+			this.checkFoodCollision();
+		if (!this.invincible && this.parent.getChildById("sharks"))	// Invincibility power up
 			this.checkSharkCollision();
-		this.checkSharkRemoval();
-		this.checkPowerUpCollision();
+		if (this.parent.getChildById("sharks"))
+			this.checkSharkRemoval();
+		if (this.parent.getChildById("powerUps"))
+			this.checkPowerUpCollision();
+
 		this.setStrength(this.squidSize + this.confidence);
 
 		// Number 2 for use powerup
@@ -127,7 +132,7 @@ class PlayerSquid extends Squid {
 		// Turn off speed
 		if (this.powerUpBank[POWER_UP.SPEED] != null 
 			&& this.speed > 10 
-			&& (gameClock - this.powerUpBank[POWER_UP.SPEED].start) > 100) {
+			&& (gameClock - this.powerUpBank[POWER_UP.SPEED].start) > 200) {
 
 			this.speed = 6;
 			this.powerUpBank[POWER_UP.SPEED] = null;
@@ -135,7 +140,7 @@ class PlayerSquid extends Squid {
 		}
 
 		if (this.invincible
-			&& (gameClock - this.powerUpBank[POWER_UP.INVINCIBLE].start > 100)) {
+			&& (gameClock - this.powerUpBank[POWER_UP.INVINCIBLE].start > 200)) {
 			this.invincible = false;
 			this.glowBackground.invincible.setVisible(false);
 		}
@@ -256,19 +261,11 @@ class PlayerSquid extends Squid {
 		for (var i = 0; i < npcs.size(); i++) {
 			if (this.collidesWith(npcs.get(i))) {
 				npcs.get(i).dispatchEvent(new CollisionEvent(npcs.get(i)));
-				// var npcHitbox = npcs.get(i).hitbox;
-				// if (this.hitbox.getMinX() < npcHitbox.getMinX()) {
-				// 	this.x -= 3;
-				// }
-				// else if (this.hitbox.getMaxX() > npcHitbox.getMaxX()) {
-				// 	this.x += 3;
-				// }
 			}
 			else {
 				if (!npcs.get(i).hasEventListener(QUEST_MANAGER, COLLISION)){
 					npcs.get(i).addEventListener(QUEST_MANAGER, COLLISION);
 				}
-				//npcs.get(i).hitbox.color = "#000000";
 			}
 		};
 	}

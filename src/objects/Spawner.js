@@ -32,6 +32,7 @@ class Spawner{
 		new_food.setX(Math.floor(Math.random() * 800 + 1));
 		new_food.setY(Math.floor(Math.random() * 600 + 1));
 		new_food.addEventListener(QUEST_MANAGER, FOOD_PICKED_UP);
+		SOUND_MANAGER.loadSoundEffect("food" + this.food_count, "pick_up.wav");
 		this.food_count += 1;
 	};
 
@@ -53,6 +54,9 @@ class Spawner{
 		npc.px = 64;
 		npc.py = 30;
 		npc.addEventListener(QUEST_MANAGER, COLLISION);
+
+		SOUND_MANAGER.loadSoundEffect("success_fight_npc" + this.squid_count, "bloibb.mp3");
+		SOUND_MANAGER.loadSoundEffect("success_flirt_npc" + this.squid_count, "success.wav");
 		this.squid_count += 1;
 	};
 

@@ -21,4 +21,4 @@ var canvasHitbox;
 
 var gameClock = 0;
 var SCORE;
-var game;
+var game, instructions;

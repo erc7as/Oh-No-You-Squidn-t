@@ -4,6 +4,16 @@
 <meta charset="utf-8"/>
 <style type="text/css">
 @font-face {
+    font-family: "Capsule";
+    src: url("./resources/capsule.otf") format("truetype");
+}
+
+@font-face {
+    font-family: "Kirvy";
+    src: url("./resources/Kirvy-Bold.otf") format("truetype");
+}
+
+@font-face {
     font-family: "Title";
     src: url("./resources/title.ttf") format("truetype");
 }
@@ -15,7 +25,7 @@
 
 h1 {
   font-family: "Title";
-  font-size: 48px;
+  font-size: 56px;
   color: #265BFF;
 }
 
@@ -58,9 +68,19 @@ input[type="button"]:hover {
   z-index: 1;
 }
 
+#instructions
+{
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  text-align: center;
+  font-family: Kirvy;
+  font-size: 24px;
+}
 #controls
 {
-  top: 10%;
+  top: 400px;
   left: 0;
   position: absolute;
   width: 100%;
@@ -68,17 +88,23 @@ input[type="button"]:hover {
   text-align: center;
 }
 </style>
+<script type="text/javascript">
+if (!localStorage.highScore) {
+    localStorage.highScore = 0;
+}
+</script>
 </head>
 
 <body>
 <div id="wrapper">
 	<img src="resources/logo.png"/>
-  <p style="font-size:12px; font-family:Arial">Press spacebar to pause the game and see controls.</p>
+  <!-- <p style="font-size:12px; font-family:Arial">Press spacebar to pause the game and see controls.</p> -->
 	<div id="gameContainer">
 		<canvas id="game" width="900" height="600">
 		<p>Your browser doesn't support canvas.</p>
 		</canvas>
-		<div id="controls"></div>
+		<div id="instructions"></div>
+    <div id="controls"></div>
 	</div>
 </div>
 
@@ -127,6 +153,7 @@ input[type="button"]:hover {
 <!-- Stuff using useful stuff -->
 <script type="text/javascript" src="src/lab/Globals.js"></script>
 <script type="text/javascript" src="src/game/main.js"></script>
+<script type="text/javascript" src="src/game/instructions.js"></script>
 
 
 </body>

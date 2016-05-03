@@ -4,7 +4,7 @@ class Main extends Game {
     constructor(canvas){
     	var width = 1000;
     	var height = 550;
-		super("Oh No You Squid'nt!", width, height, canvas);
+		super("Oh No You Squidn't!", width, height, canvas);
 		this.width = width;
 		this.height = height;
 		this.n = 1;
@@ -18,15 +18,9 @@ class Main extends Game {
 		canvasHitbox = new Hitbox(0, 0, 1000, 500);
 
 		this.mode = "Flirt";
-		this.paused = true;		// Initially paused so user can click "Start Game"
+		//this.paused = true;		// Initially paused so user can click "Start Game"
 
 		this.root = new DisplayObjectContainer("root");
-
-		//this.npcs = new DisplayObjectContainer("npcs", null, this.root);
-		//this.food_layer = new DisplayObjectContainer("foods", null, this.root);
-		//this.sharks = new DisplayObjectContainer("sharks", null, this.root);
-
-
 		this.game_layer = new DisplayObjectContainer("game", null, this.root);
 		this.food_layer = new DisplayObjectContainer("foods", null, this.game_layer);
 		this.npcs = new DisplayObjectContainer("npcs", null, this.game_layer);
@@ -42,11 +36,10 @@ class Main extends Game {
 		this.player.eyes.y = 44;
 
 		SCORE = new Score("score", null, this.game_layer, width);
-		SOUND_MANAGER.loadSoundEffect("food", "pick_up.wav");
+		
 		SOUND_MANAGER.loadSoundEffect("gem", "ping.wav");
-		SOUND_MANAGER.loadSoundEffect("success_flirt", "success.wav");
 		SOUND_MANAGER.loadSoundEffect("fail", "fail.mp3");
-		SOUND_MANAGER.loadSoundEffect("success_fight", "bloibb.mp3");
+		
 		SOUND_MANAGER.loadMusic("bubbles", "bubbles.wav");
 		SOUND_MANAGER.loadMusic("background", "melodyoflight.mp3");
 		SOUND_MANAGER.playMusic("background", this);
@@ -75,7 +68,8 @@ class Main extends Game {
 
 		// Make info screen (for initial, pause, and end game)
 		this.infoScreen = new Info("info", null, this.root, width, height);
-		this.game_layer.setVisible(false);
+		this.infoScreen.hide();
+		//this.game_layer.setVisible(false);
 
     }
 
@@ -159,14 +153,16 @@ class Main extends Game {
  * YOU NEED TO COPY THIS VERBATIM ANYTIME YOU CREATE A GAME
  */
 function tick(){
-	game.nextFrame();
-	gameClock++;
+	if (game) {
+		game.nextFrame();
+		gameClock++;
+	}
 }
 
 /* Get the drawing canvas off of the  */
-var drawingCanvas = document.getElementById('game');
-if(drawingCanvas.getContext) {
-	game = new Main(drawingCanvas);
-	game.start();
-	game.paused = true;
-}
+// var drawingCanvas = document.getElementById('game');
+// if(drawingCanvas.getContext) {
+// 	game = new Main(drawingCanvas);
+// 	game.start();
+// 	game.paused = true;
+// }

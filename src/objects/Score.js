@@ -56,51 +56,52 @@ class Score extends Sprite {
 
 	draw(g){
 		super.draw(g);
-		g.fillStyle = "#265BFF";
-		g.globalAlpha = 0.8;
-		g.fillRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
-		g.strokeStyle = "#00207E";
-		g.strokeRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
-		
-		g.globalAlpha = 1;
-		g.fillStyle = "#FFFFFF";
-		g.font = "Lighter 30px Arial";
-		g.fillText("Score:", this.x + 5, this.y + 35);
+		if (this.visible) {
+			g.fillStyle = "#265BFF";
+			g.globalAlpha = 0.8;
+			g.fillRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
+			g.strokeStyle = "#00207E";
+			g.strokeRect(this.containter.x, this.containter.y, this.containter.w, this.containter.h);
+			
+			g.globalAlpha = 1;
+			g.fillStyle = "#FFFFFF";
+			g.font = "Lighter 30px Arial";
+			g.fillText("Score:", this.x + 5, this.y + 35);
 
-		//g.font = "20px Helvetica";
-		g.fillText(this.score, this.x + 100, this.y + 35);
+			//g.font = "20px Helvetica";
+			g.fillText(this.score, this.x + 100, this.y + 35);
 
-		g.fillText("Strength:", this.x + 150, this.y + 35);
-		g.fillText(Math.round(game.player.strength), this.x + 280, this.y + 35);
+			g.fillText("Strength:", this.x + 150, this.y + 35);
+			g.fillText(Math.round(game.player.strength), this.x + 280, this.y + 35);
 
-		g.font = "Lighter 10px Arial";
-		g.fillText("Size:", this.x + 340, this.y + 20);
-		g.fillText(Math.round(game.player.squidSize), this.x + 400, this.y + 20);
+			g.font = "Lighter 10px Arial";
+			g.fillText("Size:", this.x + 340, this.y + 20);
+			g.fillText(Math.round(game.player.squidSize), this.x + 400, this.y + 20);
 
-		g.fillText("Confidence:", this.x + 340, this.y + 35);
-		g.fillText(Math.round(game.player.confidence), this.x + 400, this.y + 35);
+			g.fillText("Confidence:", this.x + 340, this.y + 35);
+			g.fillText(Math.round(game.player.confidence), this.x + 400, this.y + 35);
 
-		g.font = "Lighter 30px Arial";
-		g.fillText("Lives:", this.x + 440, this.y + 35);
-		var heartNum = 0;
-		// Draw full hearts
-		for (var i = 0; i < game.player.lives; i++, heartNum++) {
-			var heart = this.fullHearts[i];
-			heart.setX(this.x + 520 + (heartNum * 35));
-			heart.setY(10);
-			heart.draw(g);
+			g.font = "Lighter 30px Arial";
+			g.fillText("Lives:", this.x + 440, this.y + 35);
+			var heartNum = 0;
+			// Draw full hearts
+			for (var i = 0; i < game.player.lives; i++, heartNum++) {
+				var heart = this.fullHearts[i];
+				heart.setX(this.x + 520 + (heartNum * 35));
+				heart.setY(10);
+				heart.draw(g);
+			}
+			// Draw empty hearts
+			for (var i = 0; i < 3 - game.player.lives; i++, heartNum++) {
+				var heart = this.emptyHearts[i];
+				heart.setX(this.x + 520 + (heartNum * 35));
+				heart.setY(10);
+				heart.draw(g);
+			}
+
+			g.fillText("Mode:", this.x + 640, this.y + 35);
+			g.fillText(game.mode, this.x + 740, this.y + 35);
 		}
-		// Draw empty hearts
-		for (var i = 0; i < 3 - game.player.lives; i++, heartNum++) {
-			var heart = this.emptyHearts[i];
-			heart.setX(this.x + 520 + (heartNum * 35));
-			heart.setY(10);
-			heart.draw(g);
-		}
-
-		g.fillText("Mode:", this.x + 640, this.y + 35);
-		g.fillText(game.mode, this.x + 740, this.y + 35);
-
 
 	}
 

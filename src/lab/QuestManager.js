@@ -21,13 +21,13 @@ class QuestManager extends IEventListener {
 					npc.parent.children.remove(npc);
 					SCORE.addPoints();
 					SPAWNER.spawnSquid();
-					SOUND_MANAGER.playSoundEffect("success_fight");
+					SOUND_MANAGER.playSoundEffect("success_fight_" + npc.id);
 				}
 				else if (rand <= ratio && rand2 <= ratio){
 					npc.parent.children.remove(npc);
 					SCORE.addPoints();
 					SPAWNER.spawnSquid();
-					SOUND_MANAGER.playSoundEffect("success_fight");
+					SOUND_MANAGER.playSoundEffect("success_fight_" + npc.id);
 				}
 				else {
 					game.player.lives--;
@@ -40,7 +40,7 @@ class QuestManager extends IEventListener {
 				var rand = Math.random();
 				if (ratio >= 1) {
 					game.player.confidence++;
-					SOUND_MANAGER.playSoundEffect("success_flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt_" + npc.id);
 					var sprite = new Sprite(-1,"hearts.png",npc);
 					sprite.setScaleX(0.05);
 					sprite.setScaleY(0.05);
@@ -55,7 +55,7 @@ class QuestManager extends IEventListener {
 				}
 				else if (rand <= ratio){
 					game.player.confidence += 1/ratio;
-					SOUND_MANAGER.playSoundEffect("success_flirt");
+					SOUND_MANAGER.playSoundEffect("success_flirt_" + npc.id);
 					var sprite = new Sprite(-1,"hearts.png", npc);
 					sprite.setScaleX(0.05);
 					sprite.setScaleY(0.05);
@@ -68,7 +68,7 @@ class QuestManager extends IEventListener {
 					tween.animate(TweenableParam.ALPHA, .9, .0000000, 500);
 					tweenJuggler.add(tween);
 				}
-				else {
+				else if (game.player.confidence > 0) {
 					game.player.confidence -= 1/ratio;
 				}
 			}
@@ -77,9 +77,9 @@ class QuestManager extends IEventListener {
 
 		// Part of Coin object
 		if (event.eventType == FOOD_PICKED_UP) {
-			SOUND_MANAGER.playSoundEffect("food");
-			SPAWNER.spawnFood();  // Spawn new Food
+			if (SPAWNER.food_container) SPAWNER.spawnFood();  // Spawn new Food
 			var food = event.getSource();
+			SOUND_MANAGER.playSoundEffect(food.id);
 			food.exitTween1 = new Tween(food);
 			food.exitTween1.animate(TweenableParam.SCALE_X, .1, .4, 500);
 			food.exitTween1.animate(TweenableParam.SCALE_Y, .1, .4, 500);
