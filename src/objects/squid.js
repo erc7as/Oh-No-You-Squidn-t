@@ -79,7 +79,7 @@ class Squid extends PhysicsSprite {
 		var scale = this.strength / PLAYER.strength;
 		this.scaleX = scale;
 		this.scaleY = scale;
-		this.setPivotPoint([this.getWidth() / 2, this.getHeight() / 2])
+		this.setPivotPoint([this.getWidth() / 2, this.getHeight() / 2]);
 	}
 
 	// Changed to make a small square
